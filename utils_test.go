@@ -79,3 +79,19 @@ func TestIsValidColForNumber(t *testing.T) {
     t.Errorf("Column validation passed for invalid column")
   }
 }
+
+func TestIsValidInnerGridForNumber(t *testing.T) {
+	boardData := BoardData{
+		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
+    {CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
+  	{CellData{9}, CellData{3}, CellData{1}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+	}
+
+	if !IsValidInnerGridForNumber(boardData, 2, 3, 4) {
+		t.Errorf("Inner grid validation failed for valid number")
+	}
+
+	if IsValidInnerGridForNumber(boardData, 2, 3, 8) {
+		t.Errorf("Inner grid validation passed for invalid number")
+	}
+}
