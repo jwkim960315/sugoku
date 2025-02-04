@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 )
 
@@ -83,4 +84,59 @@ func FindNextEmptyCellPos(boardData BoardData) *CellPos {
   }
 
   return nil
+}
+
+func FillBoardData(boardData BoardData) bool {
+  emptyCellPos := FindNextEmptyCellPos(boardData)
+  
+  if emptyCellPos == nil {
+    return true
+  }
+
+  rowData := GeneratePossibleNumbers()
+  shuffledRowData := GenerateRandomRowNumbers(rowData[:])
+
+  for _, number := range shuffledRowData {
+    emptyCellRowIdx := emptyCellPos.RowIdx
+    emptyCellColIdx := emptyCellPos.ColIdx
+    emptyCellData := &boardData[emptyCellRowIdx][emptyCellColIdx]
+    if IsNumberValid(boardData, emptyCellRowIdx, emptyCellColIdx, number) {
+      emptyCellData.Number = number
+      if FillBoardData(boardData) {
+        return true
+      }
+      boardData[emptyCellRowIdx][emptyCellColIdx].Number = uint(0)
+    }
+  }
+
+  return false
+}
+
+func GenerateFilledBoardData() BoardData {
+  boardData := GenerateEmptyBoardData()
+  FillBoardData(boardData)
+  return boardData
+}
+
+func PrintBoardData(boardData BoardData) string {
+  printStr := "-------------------------\n"
+  
+  for rowIdx, row := range boardData {
+    printStr += "|"
+    for colIdx := range row {
+      cellData := &row[colIdx]
+      printStr += " "
+      printStr += fmt.Sprintf("%v", cellData.Number)
+      if (colIdx + 1) % 3 == 0 {
+        printStr += " |"
+      }
+    }
+    printStr += "\n"
+    
+    if (rowIdx + 1) % 3 == 0 {
+      printStr += "-------------------------\n"
+    }
+  }
+
+  return printStr
 }

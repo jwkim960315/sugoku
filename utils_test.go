@@ -177,3 +177,17 @@ func TestFindNextEmptyCellPos(t *testing.T) {
 		t.Errorf("Found empty cell position with fully filled board data")
 	}
 }
+
+func TestGenerateFilledBoardData(t *testing.T) {
+  boardData := GenerateFilledBoardData()
+
+  for rowIdx, row := range boardData {
+    for colIdx := range row {
+      cellData := &row[colIdx]
+
+      if !IsNumberValid(boardData, uint(rowIdx), uint(colIdx), cellData.Number) {
+        t.Errorf("\nInvalid number %v at (%v,%v)\n%v", cellData.Number, rowIdx, colIdx, PrintBoardData(boardData))
+      }
+    }
+  }
+}
