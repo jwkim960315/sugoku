@@ -52,3 +52,10 @@ func IsValidInnerGridForNumber(boardData BoardData, rowIdx uint, colIdx uint, nu
 
   return true
 }
+
+func IsNumberValid(boardData BoardData, emptyCellRowIdx, emptyCellColIdx, number uint) bool {
+  return (
+    IsValidRowForNumber(boardData, emptyCellRowIdx, number) &&
+    IsValidColForNumber(boardData, emptyCellColIdx, number) &&
+    IsValidInnerGridForNumber(boardData, emptyCellRowIdx, emptyCellColIdx, number))
+}

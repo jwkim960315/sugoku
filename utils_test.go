@@ -95,3 +95,25 @@ func TestIsValidInnerGridForNumber(t *testing.T) {
 		t.Errorf("Inner grid validation passed for invalid number")
 	}
 }
+
+func TestIsNumberValid(t *testing.T) {
+	boardData := BoardData{
+		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
+		{CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
+		{CellData{9}, CellData{3}, CellData{1}, CellData{4}, CellData{7}, CellData{5}, CellData{6}, CellData{8}, CellData{2}},
+		{CellData{2}, CellData{6}, CellData{7}, CellData{3}, CellData{8}, CellData{9}, CellData{1}, CellData{4}, CellData{5}},
+		{CellData{1}, CellData{9}, CellData{5}, CellData{7}, CellData{4}, CellData{2}, CellData{3}, CellData{6}, CellData{8}},
+		{CellData{8}, CellData{4}, CellData{3}, CellData{5}, CellData{6}, CellData{1}, CellData{2}, CellData{7}, CellData{9}},
+		{CellData{4}, CellData{1}, CellData{2}, CellData{8}, CellData{3}, CellData{7}, CellData{9}, CellData{5}, CellData{6}},
+		{CellData{3}, CellData{7}, CellData{8}, CellData{9}, CellData{5}, CellData{6}, CellData{4}, CellData{2}, CellData{1}},
+		{CellData{6}, CellData{5}, CellData{9}, CellData{1}, CellData{2}, CellData{4}, CellData{8}, CellData{3}, CellData{0}},
+	}
+
+	if !IsNumberValid(boardData, 8, 8, 7) {
+		t.Error("Number validation fails with valid number")
+	}
+
+	if IsNumberValid(boardData, 8, 8, 4) {
+		t.Error("Number validation passes with invalid number")
+	}
+}
