@@ -16,11 +16,11 @@ func GenerateRandomRowNumbers(rowSlice []uint) []uint {
   return rowSlice
 }
 
-func IsValidRowForNumber(boardData BoardData, rowIdx uint, number uint) bool {
+func IsValidRowForNumber(boardData BoardData, rowIdx uint, colIdx uint, number uint) bool {
   row := boardData[rowIdx]
 
-  for _, elem := range row {
-    if elem.Number == number {
+  for currColIdx, elem := range row {
+    if colIdx != uint(currColIdx) && elem.Number == number {
       return false
     }
   }
@@ -28,9 +28,9 @@ func IsValidRowForNumber(boardData BoardData, rowIdx uint, number uint) bool {
   return true
 }
 
-func IsValidColForNumber(boardData BoardData, colIdx uint, number uint) bool {
-  for _, elem := range boardData {
-    if elem[colIdx].Number == number {
+func IsValidColForNumber(boardData BoardData, rowIdx uint, colIdx uint, number uint) bool {
+  for currRowIdx, elem := range boardData {
+    if uint(currRowIdx) != rowIdx && elem[colIdx].Number == number {
       return false
     }
   }
@@ -44,7 +44,7 @@ func IsValidInnerGridForNumber(boardData BoardData, rowIdx uint, colIdx uint, nu
 
   for row := rowStartIdx; row < rowStartIdx+3; row++ {
     for col := colStartIdx; col < colStartIdx+3; col++ {
-      if boardData[row][col].Number == number {
+      if (row != rowIdx || col != colIdx) && boardData[row][col].Number == number {
         return false
       }
     }
@@ -55,8 +55,8 @@ func IsValidInnerGridForNumber(boardData BoardData, rowIdx uint, colIdx uint, nu
 
 func IsNumberValid(boardData BoardData, emptyCellRowIdx, emptyCellColIdx, number uint) bool {
   return (
-    IsValidRowForNumber(boardData, emptyCellRowIdx, number) &&
-    IsValidColForNumber(boardData, emptyCellColIdx, number) &&
+    IsValidRowForNumber(boardData, emptyCellRowIdx, emptyCellColIdx, number) &&
+    IsValidColForNumber(boardData, emptyCellRowIdx, emptyCellColIdx, number) &&
     IsValidInnerGridForNumber(boardData, emptyCellRowIdx, emptyCellColIdx, number))
 }
 
