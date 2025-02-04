@@ -37,3 +37,18 @@ func IsValidColForNumber(boardData BoardData, colIdx uint, number uint) bool {
 
   return true
 }
+
+func IsValidInnerGridForNumber(boardData BoardData, rowIdx uint, colIdx uint, number uint) bool {
+  rowStartIdx := 3 * (rowIdx / 3)
+  colStartIdx := 3 * (colIdx / 3)
+
+  for row := rowStartIdx; row < rowStartIdx+3; row++ {
+    for col := colStartIdx; col < colStartIdx+3; col++ {
+      if boardData[row][col].Number == number {
+        return false
+      }
+    }
+  }
+
+  return true
+}
