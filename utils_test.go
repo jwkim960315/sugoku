@@ -117,3 +117,17 @@ func TestIsNumberValid(t *testing.T) {
 		t.Error("Number validation passes with invalid number")
 	}
 }
+
+func TestGenerateEmptyBoardData(t *testing.T) {
+	boardData := GenerateEmptyBoardData()
+
+	for rowIdx := range boardData {
+		row := boardData
+		for colIdx := range row {
+			cellData := &boardData[rowIdx][colIdx]
+			if cellData.Number != 0 {
+				t.Errorf("Cell data value isn't zero:%v", cellData.Number)
+			}
+		}
+	}
+}
