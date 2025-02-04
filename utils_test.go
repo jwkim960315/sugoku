@@ -64,11 +64,11 @@ func TestIsValidRowForNumber(t *testing.T) {
 		},
 	}
 
-	if !IsValidRowForNumber(shuffledRow, 0, 6) {
+	if !IsValidRowForNumber(shuffledRow, 0, 8, 6) {
 		t.Errorf("Row validation failed for valid row")
 	}
 
-	if IsValidRowForNumber(shuffledRow, 0, 3) {
+	if IsValidRowForNumber(shuffledRow, 0, 8, 3) {
 		t.Errorf("Row validation passed for invalid row")
 	}
 }
@@ -85,11 +85,11 @@ func TestIsValidColForNumber(t *testing.T) {
     {CellData{1}},
   }
 
-  if !IsValidColForNumber(shuffledCol, 0, 6) {
+  if !IsValidColForNumber(shuffledCol, 8, 0, 6) {
     t.Errorf("Column validation failed for valid column")
   }
 
-  if IsValidColForNumber(shuffledCol, 0, 3) {
+  if IsValidColForNumber(shuffledCol, 8, 0, 3) {
     t.Errorf("Column validation passed for invalid column")
   }
 }
