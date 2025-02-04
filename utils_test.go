@@ -58,3 +58,24 @@ func TestIsValidRowForNumber(t *testing.T) {
 		t.Errorf("Row validation passed for invalid row")
 	}
 }
+
+func TestIsValidColForNumber(t *testing.T) {
+  shuffledCol := BoardData{
+    {CellData{3}},
+    {CellData{2}},
+    {CellData{8}},
+    {CellData{4}},
+    {CellData{5}},
+    {CellData{9}},
+    {CellData{7}},
+    {CellData{1}},
+  }
+
+  if !IsValidColForNumber(shuffledCol, 0, 6) {
+    t.Errorf("Column validation failed for valid column")
+  }
+
+  if IsValidColForNumber(shuffledCol, 0, 3) {
+    t.Errorf("Column validation passed for invalid column")
+  }
+}

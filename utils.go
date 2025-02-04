@@ -27,3 +27,13 @@ func IsValidRowForNumber(boardData BoardData, rowIdx uint, number uint) bool {
 
   return true
 }
+
+func IsValidColForNumber(boardData BoardData, colIdx uint, number uint) bool {
+  for _, elem := range boardData {
+    if elem[colIdx].Number == number {
+      return false
+    }
+  }
+
+  return true
+}
