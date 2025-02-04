@@ -59,3 +59,14 @@ func IsNumberValid(boardData BoardData, emptyCellRowIdx, emptyCellColIdx, number
     IsValidColForNumber(boardData, emptyCellColIdx, number) &&
     IsValidInnerGridForNumber(boardData, emptyCellRowIdx, emptyCellColIdx, number))
 }
+
+func GenerateEmptyBoardData() BoardData {
+  boardData := make(BoardData, 9)
+  for rowIdx := range boardData {
+    boardData[rowIdx] = make([]CellData, 9)
+    for colIdx := range boardData[rowIdx] {
+      boardData[rowIdx][colIdx] = CellData{0}
+    }
+  }
+  return boardData
+}
