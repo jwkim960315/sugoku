@@ -74,31 +74,31 @@ func TestIsValidRowForNumber(t *testing.T) {
 }
 
 func TestIsValidColForNumber(t *testing.T) {
-  shuffledCol := BoardData{
-    {CellData{3}},
-    {CellData{2}},
-    {CellData{8}},
-    {CellData{4}},
-    {CellData{5}},
-    {CellData{9}},
-    {CellData{7}},
-    {CellData{1}},
-  }
+	shuffledCol := BoardData{
+		{CellData{3}},
+		{CellData{2}},
+		{CellData{8}},
+		{CellData{4}},
+		{CellData{5}},
+		{CellData{9}},
+		{CellData{7}},
+		{CellData{1}},
+	}
 
-  if !IsValidColForNumber(shuffledCol, 8, 0, 6) {
-    t.Errorf("Column validation failed for valid column")
-  }
+	if !IsValidColForNumber(shuffledCol, 8, 0, 6) {
+		t.Errorf("Column validation failed for valid column")
+	}
 
-  if IsValidColForNumber(shuffledCol, 8, 0, 3) {
-    t.Errorf("Column validation passed for invalid column")
-  }
+	if IsValidColForNumber(shuffledCol, 8, 0, 3) {
+		t.Errorf("Column validation passed for invalid column")
+	}
 }
 
 func TestIsValidInnerGridForNumber(t *testing.T) {
 	boardData := BoardData{
 		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
-    {CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
-  	{CellData{9}, CellData{3}, CellData{1}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
+		{CellData{9}, CellData{3}, CellData{1}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
 	}
 
 	if !IsValidInnerGridForNumber(boardData, 2, 3, 4) {
@@ -160,7 +160,7 @@ func TestFindNextEmptyCellPos(t *testing.T) {
 		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
 	}
 	boardData3 := FilledBoardData
-	
+
 	emptyCellPos1 := FindNextEmptyCellPos(boardData1)
 	emptyCellPos2 := FindNextEmptyCellPos(boardData2)
 	emptyCellPos3 := FindNextEmptyCellPos(boardData3)
@@ -179,15 +179,15 @@ func TestFindNextEmptyCellPos(t *testing.T) {
 }
 
 func TestGenerateFilledBoardData(t *testing.T) {
-  boardData := GenerateFilledBoardData()
+	boardData := GenerateFilledBoardData()
 
-  for rowIdx, row := range boardData {
-    for colIdx := range row {
-      cellData := &row[colIdx]
+	for rowIdx, row := range boardData {
+		for colIdx := range row {
+			cellData := &row[colIdx]
 
-      if !IsNumberValid(boardData, uint(rowIdx), uint(colIdx), cellData.Number) {
-        t.Errorf("\nInvalid number %v at (%v,%v)\n%v", cellData.Number, rowIdx, colIdx, PrintBoardData(boardData))
-      }
-    }
-  }
+			if !IsNumberValid(boardData, uint(rowIdx), uint(colIdx), cellData.Number) {
+				t.Errorf("\nInvalid number %v at (%v,%v)\n%v", cellData.Number, rowIdx, colIdx, PrintBoardData(boardData))
+			}
+		}
+	}
 }
