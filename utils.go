@@ -70,3 +70,17 @@ func GenerateEmptyBoardData() BoardData {
   }
   return boardData
 }
+
+func FindNextEmptyCellPos(boardData BoardData) *CellPos {
+  for rowIdx := range boardData {
+    rowData := boardData[rowIdx]
+    for colIdx := range rowData {
+      cellData := boardData[rowIdx][colIdx]
+      if cellData.Number == 0 {
+        return &CellPos{uint(rowIdx), uint(colIdx)}
+      }
+    }
+  }
+
+  return nil
+}

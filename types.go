@@ -5,3 +5,8 @@ type CellData struct {
 }
 
 type BoardData = [][]CellData
+
+type CellPos struct {
+	RowIdx uint
+	ColIdx uint
+}
