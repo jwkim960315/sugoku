@@ -4,6 +4,20 @@ import (
 	"testing"
 )
 
+var (
+	FilledBoardData BoardData = BoardData{
+		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
+		{CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
+		{CellData{9}, CellData{3}, CellData{1}, CellData{4}, CellData{7}, CellData{5}, CellData{6}, CellData{8}, CellData{2}},
+		{CellData{2}, CellData{6}, CellData{7}, CellData{3}, CellData{8}, CellData{9}, CellData{1}, CellData{4}, CellData{5}},
+		{CellData{1}, CellData{9}, CellData{5}, CellData{7}, CellData{4}, CellData{2}, CellData{3}, CellData{6}, CellData{8}},
+		{CellData{8}, CellData{4}, CellData{3}, CellData{5}, CellData{6}, CellData{1}, CellData{2}, CellData{7}, CellData{9}},
+		{CellData{4}, CellData{1}, CellData{2}, CellData{8}, CellData{3}, CellData{7}, CellData{9}, CellData{5}, CellData{6}},
+		{CellData{3}, CellData{7}, CellData{8}, CellData{9}, CellData{5}, CellData{6}, CellData{4}, CellData{2}, CellData{1}},
+		{CellData{6}, CellData{5}, CellData{9}, CellData{1}, CellData{2}, CellData{4}, CellData{8}, CellData{3}, CellData{7}},
+	}
+)
+
 func TestGeneratePossibleNumbers(t *testing.T) {
 	rowArray := GeneratePossibleNumbers()
 
@@ -129,5 +143,37 @@ func TestGenerateEmptyBoardData(t *testing.T) {
 				t.Errorf("Cell data value isn't zero:%v", cellData.Number)
 			}
 		}
+	}
+}
+
+func TestFindNextEmptyCellPos(t *testing.T) {
+	boardData1 := GenerateEmptyBoardData()
+	boardData2 := BoardData{
+		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
+		{CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
+		{CellData{9}, CellData{3}, CellData{1}, CellData{4}, CellData{7}, CellData{5}, CellData{6}, CellData{8}, CellData{2}},
+		{CellData{2}, CellData{6}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{1}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+	}
+	boardData3 := FilledBoardData
+	
+	emptyCellPos1 := FindNextEmptyCellPos(boardData1)
+	emptyCellPos2 := FindNextEmptyCellPos(boardData2)
+	emptyCellPos3 := FindNextEmptyCellPos(boardData3)
+
+	if emptyCellPos1.RowIdx != 0 || emptyCellPos1.ColIdx != 0 {
+		t.Errorf("Incorrect empty cell position: (%v,%v)", emptyCellPos1.RowIdx, emptyCellPos1.ColIdx)
+	}
+
+	if emptyCellPos2.RowIdx != 3 || emptyCellPos2.ColIdx != 2 {
+		t.Errorf("Incorrect empty cell position: (%v,%v)", emptyCellPos2.RowIdx, emptyCellPos2.ColIdx)
+	}
+
+	if emptyCellPos3 != nil {
+		t.Errorf("Found empty cell position with fully filled board data")
 	}
 }
