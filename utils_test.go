@@ -191,3 +191,16 @@ func TestGenerateFilledBoardData(t *testing.T) {
 		}
 	}
 }
+
+func TestGenerateCellPositions(t *testing.T) {
+	cellPositions := GenerateCellPositions()
+
+	for i := uint(0); i < 9; i++ {
+		for j := uint(0); j < 9; j++ {
+			cellPos := cellPositions[i * 9 + j]
+			if cellPos.RowIdx != i || cellPos.ColIdx != j {
+				t.Errorf("Incorrect position (%v, %v); want (%v, %v)", cellPos.RowIdx, cellPos.ColIdx, i, j)
+			}
+		}
+	}
+}

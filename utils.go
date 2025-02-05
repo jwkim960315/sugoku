@@ -139,3 +139,15 @@ func PrintBoardData(boardData BoardData) string {
 
 	return printStr
 }
+
+func GenerateCellPositions() []CellPos {
+  positions := make([]CellPos, 81)
+  for rowIdx := 0; rowIdx < 9; rowIdx++ {
+    for colIdx := 0; colIdx < 9; colIdx++ {
+      posIdx := rowIdx * 9 + colIdx
+      positions[posIdx] = CellPos{uint(rowIdx), uint(colIdx)}
+    }
+  }
+
+  return positions
+}
