@@ -159,3 +159,28 @@ func GenerateRandomPositions(positions []CellPos) []CellPos {
 
   return positions
 }
+
+func countSolutionsHelper(boardData BoardData, emptyPosSlice []CellPos, idx int, count *uint) {
+  if idx == len(emptyPosSlice) {
+    *count++
+    return
+  }
+
+  cellPos := &emptyPosSlice[idx]
+  possibleNumbers := GeneratePossibleNumbers()
+
+  for _, num := range possibleNumbers {
+    cellData := &boardData[cellPos.RowIdx][cellPos.ColIdx]
+    cellData.Number = num
+    if IsNumberValid(boardData, cellPos.RowIdx, cellPos.ColIdx, num) {
+      countSolutionsHelper(boardData, emptyPosSlice, idx+1, count)
+    }
+    cellData.Number = uint(0)
+  }
+}
+
+func CountSolutions(boardData BoardData, emptyPosSlice []CellPos) uint {
+  count := uint(0)
+  countSolutionsHelper(boardData, emptyPosSlice, 0, &count)
+  return count
+}
