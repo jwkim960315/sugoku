@@ -232,3 +232,41 @@ func TestGenerateRandomPositions(t *testing.T) {
 		t.Errorf("\nSome positions are either missing or mismatching\nOriginal slice: %v\nShuffled slice: %v", cellPositions, shuffledPositions)
 	}
 }
+
+func TestCountSolutions(t *testing.T) {
+	multipleSolutionBoardData := GenerateEmptyBoardData()
+
+	multipleEmptyPos := []CellPos{{0, 0}, {0, 1}}
+
+	numSolutions := CountSolutions(multipleSolutionBoardData, multipleEmptyPos)
+	expectedNumSolutions := uint(72)
+	if numSolutions != expectedNumSolutions {
+		t.Errorf("Expected %v solutions for board with only first row filled, got %v", expectedNumSolutions, numSolutions)
+	}
+
+	uniqueSolutionBoardData := BoardData{
+		{CellData{5}, CellData{3}, CellData{0}, CellData{0}, CellData{7}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{6}, CellData{0}, CellData{0}, CellData{1}, CellData{9}, CellData{5}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{0}, CellData{9}, CellData{8}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{6}, CellData{0}},
+		{CellData{8}, CellData{0}, CellData{0}, CellData{0}, CellData{6}, CellData{0}, CellData{0}, CellData{0}, CellData{3}},
+		{CellData{4}, CellData{0}, CellData{0}, CellData{8}, CellData{0}, CellData{3}, CellData{0}, CellData{0}, CellData{1}},
+		{CellData{7}, CellData{0}, CellData{0}, CellData{0}, CellData{2}, CellData{0}, CellData{0}, CellData{0}, CellData{6}},
+		{CellData{0}, CellData{6}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{2}, CellData{8}, CellData{0}},
+		{CellData{0}, CellData{0}, CellData{0}, CellData{4}, CellData{1}, CellData{9}, CellData{0}, CellData{0}, CellData{5}},
+		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{8}, CellData{0}, CellData{0}, CellData{7}, CellData{9}},
+	}
+
+	var uniqueEmptyPos []CellPos
+	for i := uint(0); i < 9; i++ {
+		for j := uint(0); j < 9; j++ {
+			if uniqueSolutionBoardData[i][j].Number == 0 {
+				uniqueEmptyPos = append(uniqueEmptyPos, CellPos{i, j})
+			}
+		}
+	}
+
+	uniqueSolutions := CountSolutions(uniqueSolutionBoardData, uniqueEmptyPos)
+	if uniqueSolutions != 1 {
+		t.Errorf("Expected exactly one solution for valid Sudoku puzzle, got %v", uniqueSolutions)
+	}
+}
