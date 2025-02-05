@@ -151,3 +151,11 @@ func GenerateCellPositions() []CellPos {
 
   return positions
 }
+
+func GenerateRandomPositions(positions []CellPos) []CellPos {
+  rand.Shuffle(len(positions), func(idx1, idx2 int) {
+    (positions)[idx1], positions[idx2] = positions[idx2], positions[idx1]
+  })
+
+  return positions
+}
