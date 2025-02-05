@@ -204,3 +204,31 @@ func TestGenerateCellPositions(t *testing.T) {
 		}
 	}
 }
+
+func TestGenerateRandomPositions(t *testing.T) {
+	cellPositions := GenerateCellPositions()
+	shuffledPositions := GenerateRandomPositions(cellPositions)
+
+	if len(cellPositions) != len(shuffledPositions) {
+		t.Errorf("\nOriginal slice has a different length than the shuffled slice\nOriginal slice length: %v\nShuffled slice length: %v", len(cellPositions), len(shuffledPositions))
+	}
+
+	numMatchingPos := 0
+	for _, cellPos := range cellPositions {
+		hasFound := false
+		for _, randCellPos := range shuffledPositions {
+			if randCellPos.ColIdx == cellPos.ColIdx && randCellPos.RowIdx == cellPos.RowIdx {
+				hasFound = true
+				break
+			}
+		}
+
+		if hasFound {
+			numMatchingPos++
+		}
+	}
+
+	if numMatchingPos != len(cellPositions) {
+		t.Errorf("\nSome positions are either missing or mismatching\nOriginal slice: %v\nShuffled slice: %v", cellPositions, shuffledPositions)
+	}
+}
