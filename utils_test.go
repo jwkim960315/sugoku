@@ -28,9 +28,9 @@ func TestGeneratePossibleNumbers(t *testing.T) {
 	}
 }
 
-func TestGenerateRandomRowNumbers(t *testing.T) {
+func TestShuffleSlice(t *testing.T) {
 	rowArray := GeneratePossibleNumbers()
-	shuffledRowArray := GenerateRandomRowNumbers(rowArray[:])
+	shuffledRowArray := ShuffleSlice(rowArray[:])
 
 	if len(rowArray) != len(shuffledRowArray) {
 		t.Errorf("\nOriginal array has a different length than the shuffled array\nOriginal array length: %v\nShuffled array length: %v", len(rowArray), len(shuffledRowArray))
@@ -207,7 +207,7 @@ func TestGenerateCellPositions(t *testing.T) {
 
 func TestGenerateRandomPositions(t *testing.T) {
 	cellPositions := GenerateCellPositions()
-	shuffledPositions := GenerateRandomPositions(cellPositions)
+	shuffledPositions := ShuffleSlice(cellPositions)
 
 	if len(cellPositions) != len(shuffledPositions) {
 		t.Errorf("\nOriginal slice has a different length than the shuffled slice\nOriginal slice length: %v\nShuffled slice length: %v", len(cellPositions), len(shuffledPositions))

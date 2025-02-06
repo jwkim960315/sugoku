@@ -42,6 +42,14 @@ func PrintBoardData(boardData BoardData) string {
 	return printStr
 }
 
+func ShuffleSlice[T any](slice []T) []T {
+  rand.Shuffle(len(slice), func(idx1, idx2 int) {
+		(slice)[idx1], slice[idx2] = slice[idx2], slice[idx1]
+	})
+
+	return slice
+}
+
 /*********************************/
 /***** Sudoku Initialization *****/
 /*********************************/
@@ -73,14 +81,6 @@ func GetNumEmptyCells(difficulty Difficulty) int {
 
 func GeneratePossibleNumbers() [MaxNum]int {
 	return [MaxNum]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
-}
-
-func GenerateRandomRowNumbers(rowSlice []int) []int {
-	rand.Shuffle(len(rowSlice), func(idx1, idx2 int) {
-		(rowSlice)[idx1], rowSlice[idx2] = rowSlice[idx2], rowSlice[idx1]
-	})
-
-	return rowSlice
 }
 
 func IsValidRowForNumber(boardData BoardData, rowIdx int, colIdx int, number int) bool {
@@ -159,7 +159,7 @@ func FillBoardData(boardData BoardData) bool {
 	}
 
 	rowData := GeneratePossibleNumbers()
-	shuffledRowData := GenerateRandomRowNumbers(rowData[:])
+	shuffledRowData := ShuffleSlice(rowData[:])
 
 	for _, number := range shuffledRowData {
 		emptyCellRowIdx := emptyCellPos.RowIdx
@@ -195,14 +195,6 @@ func GenerateCellPositions() []CellPos {
   return positions
 }
 
-func GenerateRandomPositions(positions []CellPos) []CellPos {
-  rand.Shuffle(len(positions), func(idx1, idx2 int) {
-    (positions)[idx1], positions[idx2] = positions[idx2], positions[idx1]
-  })
-
-  return positions
-}
-
 func countSolutionsHelper(boardData BoardData, emptyPosSlice []CellPos, idx int, count *int) {
   if idx == len(emptyPosSlice) {
     *count++
@@ -230,7 +222,7 @@ func CountSolutions(boardData BoardData, emptyPosSlice []CellPos) int {
 
 func RemoveNumbers(boardData BoardData, numEmptyCells int) {
   cellPositions := GenerateCellPositions()
-  shuffledPositions := GenerateRandomPositions(cellPositions)
+  shuffledPositions := ShuffleSlice(cellPositions)
 
   zeroPositions := make([]CellPos, 0);
 
