@@ -270,3 +270,25 @@ func TestCountSolutions(t *testing.T) {
 		t.Errorf("Expected exactly one solution for valid Sudoku puzzle, got %v", uniqueSolutions)
 	}
 }
+
+func TestGetNumEmptyCells(t *testing.T) {
+	expectedNumEmptyCellsForEasy := 20
+	expectedNumEmptyCellsForMedium := 30
+	expectedNumEmptyCellsForHard := 40
+
+	numEmptyCellsForEasy := GetNumEmptyCells(Easy)
+	numEmptyCellsForMedium := GetNumEmptyCells(Medium)
+	numEmptyCellsForHard := GetNumEmptyCells(Hard)
+
+	if numEmptyCellsForEasy != expectedNumEmptyCellsForEasy {
+		t.Errorf("\nNumber of empty cells for easy level is incorrect\nExpected output: %v\n Actual output: %v", expectedNumEmptyCellsForEasy, numEmptyCellsForEasy)
+	}
+
+	if numEmptyCellsForMedium != expectedNumEmptyCellsForMedium {
+		t.Errorf("\nNumber of empty cells for medium level is incorrect\nExpected output: %v\n Actual output: %v", expectedNumEmptyCellsForMedium, numEmptyCellsForMedium)
+	}
+
+	if numEmptyCellsForHard != expectedNumEmptyCellsForHard {
+		t.Errorf("\nNumber of empty cells for hard level is incorrect\nExpected output: %v\n Actual output: %v", expectedNumEmptyCellsForHard, numEmptyCellsForHard)
+	}
+}

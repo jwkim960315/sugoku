@@ -10,3 +10,5 @@ type CellPos struct {
 	RowIdx uint
 	ColIdx uint
 }
+
+type Difficulty int
