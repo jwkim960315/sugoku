@@ -28,11 +28,11 @@ func GetNumEmptyCells(difficulty Difficulty) int {
   return numEmptyCells
 }
 
-func GeneratePossibleNumbers() [9]uint {
-	return [9]uint{1, 2, 3, 4, 5, 6, 7, 8, 9}
+func GeneratePossibleNumbers() [9]int {
+	return [9]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 }
 
-func GenerateRandomRowNumbers(rowSlice []uint) []uint {
+func GenerateRandomRowNumbers(rowSlice []int) []int {
 	rand.Shuffle(len(rowSlice), func(idx1, idx2 int) {
 		(rowSlice)[idx1], rowSlice[idx2] = rowSlice[idx2], rowSlice[idx1]
 	})
@@ -40,11 +40,11 @@ func GenerateRandomRowNumbers(rowSlice []uint) []uint {
 	return rowSlice
 }
 
-func IsValidRowForNumber(boardData BoardData, rowIdx uint, colIdx uint, number uint) bool {
+func IsValidRowForNumber(boardData BoardData, rowIdx int, colIdx int, number int) bool {
 	row := boardData[rowIdx]
 
 	for currColIdx, elem := range row {
-		if colIdx != uint(currColIdx) && elem.Number == number {
+		if colIdx != currColIdx && elem.Number == number {
 			return false
 		}
 	}
@@ -52,9 +52,9 @@ func IsValidRowForNumber(boardData BoardData, rowIdx uint, colIdx uint, number u
 	return true
 }
 
-func IsValidColForNumber(boardData BoardData, rowIdx uint, colIdx uint, number uint) bool {
+func IsValidColForNumber(boardData BoardData, rowIdx int, colIdx int, number int) bool {
 	for currRowIdx, elem := range boardData {
-		if uint(currRowIdx) != rowIdx && elem[colIdx].Number == number {
+		if currRowIdx != rowIdx && elem[colIdx].Number == number {
 			return false
 		}
 	}
@@ -62,7 +62,7 @@ func IsValidColForNumber(boardData BoardData, rowIdx uint, colIdx uint, number u
 	return true
 }
 
-func IsValidInnerGridForNumber(boardData BoardData, rowIdx uint, colIdx uint, number uint) bool {
+func IsValidInnerGridForNumber(boardData BoardData, rowIdx int, colIdx int, number int) bool {
 	rowStartIdx := 3 * (rowIdx / 3)
 	colStartIdx := 3 * (colIdx / 3)
 
@@ -77,7 +77,7 @@ func IsValidInnerGridForNumber(boardData BoardData, rowIdx uint, colIdx uint, nu
 	return true
 }
 
-func IsNumberValid(boardData BoardData, emptyCellRowIdx, emptyCellColIdx, number uint) bool {
+func IsNumberValid(boardData BoardData, emptyCellRowIdx, emptyCellColIdx, number int) bool {
 	return (IsValidRowForNumber(boardData, emptyCellRowIdx, emptyCellColIdx, number) &&
 		IsValidColForNumber(boardData, emptyCellRowIdx, emptyCellColIdx, number) &&
 		IsValidInnerGridForNumber(boardData, emptyCellRowIdx, emptyCellColIdx, number))
@@ -100,7 +100,7 @@ func FindNextEmptyCellPos(boardData BoardData) *CellPos {
 		for colIdx := range rowData {
 			cellData := boardData[rowIdx][colIdx]
 			if cellData.Number == 0 {
-				return &CellPos{uint(rowIdx), uint(colIdx)}
+				return &CellPos{rowIdx, colIdx}
 			}
 		}
 	}
@@ -127,7 +127,7 @@ func FillBoardData(boardData BoardData) bool {
 			if FillBoardData(boardData) {
 				return true
 			}
-			boardData[emptyCellRowIdx][emptyCellColIdx].Number = uint(0)
+			boardData[emptyCellRowIdx][emptyCellColIdx].Number = 0
 		}
 	}
 
@@ -168,7 +168,7 @@ func GenerateCellPositions() []CellPos {
   for rowIdx := 0; rowIdx < 9; rowIdx++ {
     for colIdx := 0; colIdx < 9; colIdx++ {
       posIdx := rowIdx * 9 + colIdx
-      positions[posIdx] = CellPos{uint(rowIdx), uint(colIdx)}
+      positions[posIdx] = CellPos{rowIdx, colIdx}
     }
   }
 
@@ -183,7 +183,7 @@ func GenerateRandomPositions(positions []CellPos) []CellPos {
   return positions
 }
 
-func countSolutionsHelper(boardData BoardData, emptyPosSlice []CellPos, idx int, count *uint) {
+func countSolutionsHelper(boardData BoardData, emptyPosSlice []CellPos, idx int, count *int) {
   if idx == len(emptyPosSlice) {
     *count++
     return
@@ -198,12 +198,12 @@ func countSolutionsHelper(boardData BoardData, emptyPosSlice []CellPos, idx int,
     if IsNumberValid(boardData, cellPos.RowIdx, cellPos.ColIdx, num) {
       countSolutionsHelper(boardData, emptyPosSlice, idx+1, count)
     }
-    cellData.Number = uint(0)
+    cellData.Number = 0
   }
 }
 
-func CountSolutions(boardData BoardData, emptyPosSlice []CellPos) uint {
-  count := uint(0)
+func CountSolutions(boardData BoardData, emptyPosSlice []CellPos) int {
+  count := 0
   countSolutionsHelper(boardData, emptyPosSlice, 0, &count)
   return count
 }
@@ -217,7 +217,7 @@ func RemoveNumbers(boardData BoardData, numEmptyCells int) {
   for idx := 0; len(zeroPositions) < int(numEmptyCells) && idx < len(shuffledPositions); idx++ {
     cellPos := &shuffledPositions[idx]
     cellNumber := boardData[cellPos.RowIdx][cellPos.ColIdx].Number
-    boardData[cellPos.RowIdx][cellPos.ColIdx].Number = uint(0)
+    boardData[cellPos.RowIdx][cellPos.ColIdx].Number = 0
     zeroPositions = append(zeroPositions, *cellPos)
     numSolutions := CountSolutions(boardData, zeroPositions)
     if numSolutions > 1 {
