@@ -292,3 +292,24 @@ func TestGetNumEmptyCells(t *testing.T) {
 		t.Errorf("\nNumber of empty cells for hard level is incorrect\nExpected output: %v\n Actual output: %v", expectedNumEmptyCellsForHard, numEmptyCellsForHard)
 	}
 }
+
+func TestRemoveNumbers(t *testing.T) {
+  boardData := DeepCopyBoardData(FilledBoardData)
+
+  numEmptyCells := GetNumEmptyCells(Medium)
+
+  RemoveNumbers(boardData, numEmptyCells)
+
+  numZero := 0
+  for i := 0; i < len(boardData); i++ {
+    for j := 0; j < len(boardData[i]); j++ {
+      if boardData[i][j].Number == 0 {
+        numZero++
+      }
+    }
+  }
+
+  if numZero != int(numEmptyCells) {
+    t.Errorf("Expected %d cells to be removed, got %d", numEmptyCells, numZero)
+  }
+}
