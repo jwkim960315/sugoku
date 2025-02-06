@@ -5,6 +5,29 @@ import (
 	"math/rand"
 )
 
+const (
+  Easy Difficulty = iota
+  Medium
+  Hard
+)
+
+var (
+  cellsToRemoveByDifficulty = map[Difficulty]int{
+    Easy: 20,
+    Medium: 30,
+    Hard: 40,
+  }
+)
+
+func GetNumEmptyCells(difficulty Difficulty) int {
+  numEmptyCells := cellsToRemoveByDifficulty[difficulty]
+  if numEmptyCells == 0 {
+    panic(fmt.Sprintf("Invalid difficulty value: %v", difficulty))
+  }
+
+  return numEmptyCells
+}
+
 func GeneratePossibleNumbers() [9]uint {
 	return [9]uint{1, 2, 3, 4, 5, 6, 7, 8, 9}
 }
