@@ -313,3 +313,47 @@ func TestRemoveNumbers(t *testing.T) {
     t.Errorf("Expected %d cells to be removed, got %d", numEmptyCells, numZero)
   }
 }
+
+func TestGenerateInitialBoardData(t *testing.T) {
+	boardData := GenerateInitialBoardData(Easy)
+
+	// Check board dimensions are correct
+	if len(boardData) != MaxNum {
+		t.Errorf("Board has incorrect number of rows. Expected %d, got %d", MaxNum, len(boardData))
+	}
+	for i := 0; i < len(boardData); i++ {
+		if len(boardData[i]) != MaxNum {
+			t.Errorf("Row %d has incorrect length. Expected %d, got %d", i, MaxNum, len(boardData[i]))
+		}
+	}
+
+	// Count empty cells
+	numEmptyCells := GetNumEmptyCells(Easy)
+	numZero := 0
+	for i := 0; i < len(boardData); i++ {
+		for j := 0; j < len(boardData[i]); j++ {
+			if boardData[i][j].Number == 0 {
+				numZero++
+			}
+		}
+	}
+
+	if numZero != numEmptyCells {
+		t.Errorf("Expected %d empty cells, got %d", numEmptyCells, numZero)
+	}
+
+	// Verify board has exactly one solution
+	emptyPositions := make([]CellPos, 0)
+	for i := 0; i < len(boardData); i++ {
+		for j := 0; j < len(boardData[i]); j++ {
+			if boardData[i][j].Number == 0 {
+				emptyPositions = append(emptyPositions, CellPos{i, j})
+			}
+		}
+	}
+
+	numSolutions := CountSolutions(boardData, emptyPositions)
+	if numSolutions != 1 {
+		t.Errorf("Board should have exactly one solution, got %d solutions", numSolutions)
+	}
+}
