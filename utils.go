@@ -5,6 +5,47 @@ import (
 	"math/rand"
 )
 
+/***************************/
+/***** General Purpose *****/
+/***************************/
+
+func DeepCopyBoardData(boardData BoardData) BoardData {
+  copiedBoardData := make(BoardData, len(boardData))
+  for i := range boardData {
+    row := make([]CellData, len(boardData[i]))
+    copy(row, boardData[i])
+    copiedBoardData[i] = row
+  }
+  return copiedBoardData
+}
+
+func PrintBoardData(boardData BoardData) string {
+	printStr := "-------------------------\n"
+
+	for rowIdx, row := range boardData {
+		printStr += "|"
+		for colIdx := range row {
+			cellData := &row[colIdx]
+			printStr += " "
+			printStr += fmt.Sprintf("%v", cellData.Number)
+			if (colIdx+1)%3 == 0 {
+				printStr += " |"
+			}
+		}
+		printStr += "\n"
+
+		if (rowIdx+1)%3 == 0 {
+			printStr += "-------------------------\n"
+		}
+	}
+
+	return printStr
+}
+
+/*********************************/
+/***** Sudoku Initialization *****/
+/*********************************/
+
 const (
   Easy Difficulty = iota
   Medium
@@ -142,29 +183,6 @@ func GenerateFilledBoardData() BoardData {
 	return boardData
 }
 
-func PrintBoardData(boardData BoardData) string {
-	printStr := "-------------------------\n"
-
-	for rowIdx, row := range boardData {
-		printStr += "|"
-		for colIdx := range row {
-			cellData := &row[colIdx]
-			printStr += " "
-			printStr += fmt.Sprintf("%v", cellData.Number)
-			if (colIdx+1)%3 == 0 {
-				printStr += " |"
-			}
-		}
-		printStr += "\n"
-
-		if (rowIdx+1)%3 == 0 {
-			printStr += "-------------------------\n"
-		}
-	}
-
-	return printStr
-}
-
 func GenerateCellPositions() []CellPos {
   positions := make([]CellPos, MaxNum*MaxNum)
   for rowIdx := 0; rowIdx < MaxNum; rowIdx++ {
@@ -227,14 +245,4 @@ func RemoveNumbers(boardData BoardData, numEmptyCells int) {
       zeroPositions = zeroPositions[:len(zeroPositions)-1]
     }
   }
-}
-
-func DeepCopyBoardData(boardData BoardData) BoardData {
-  copiedBoardData := make(BoardData, len(boardData))
-  for i := range boardData {
-    row := make([]CellData, len(boardData[i]))
-    copy(row, boardData[i])
-    copiedBoardData[i] = row
-  }
-  return copiedBoardData
 }
