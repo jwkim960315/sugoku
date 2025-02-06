@@ -195,9 +195,9 @@ func TestGenerateFilledBoardData(t *testing.T) {
 func TestGenerateCellPositions(t *testing.T) {
 	cellPositions := GenerateCellPositions()
 
-	for i := 0; i < 9; i++ {
-		for j := 0; j < 9; j++ {
-			cellPos := cellPositions[i * 9 + j]
+	for i := 0; i < MaxNum; i++ {
+		for j := 0; j < MaxNum; j++ {
+			cellPos := cellPositions[i * MaxNum + j]
 			if cellPos.RowIdx != i || cellPos.ColIdx != j {
 				t.Errorf("Incorrect position (%v, %v); want (%v, %v)", cellPos.RowIdx, cellPos.ColIdx, i, j)
 			}
@@ -257,8 +257,8 @@ func TestCountSolutions(t *testing.T) {
 	}
 
 	var uniqueEmptyPos []CellPos
-	for i := 0; i < 9; i++ {
-		for j := 0; j < 9; j++ {
+	for i := 0; i < MaxNum; i++ {
+		for j := 0; j < MaxNum; j++ {
 			if uniqueSolutionBoardData[i][j].Number == 0 {
 				uniqueEmptyPos = append(uniqueEmptyPos, CellPos{i, j})
 			}

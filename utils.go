@@ -11,6 +11,8 @@ const (
   Hard
 )
 
+const MaxNum = 9
+
 var (
   cellsToRemoveByDifficulty = map[Difficulty]int{
     Easy: 20,
@@ -28,8 +30,8 @@ func GetNumEmptyCells(difficulty Difficulty) int {
   return numEmptyCells
 }
 
-func GeneratePossibleNumbers() [9]int {
-	return [9]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+func GeneratePossibleNumbers() [MaxNum]int {
+	return [MaxNum]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 }
 
 func GenerateRandomRowNumbers(rowSlice []int) []int {
@@ -84,9 +86,9 @@ func IsNumberValid(boardData BoardData, emptyCellRowIdx, emptyCellColIdx, number
 }
 
 func GenerateEmptyBoardData() BoardData {
-	boardData := make(BoardData, 9)
+	boardData := make(BoardData, MaxNum)
 	for rowIdx := range boardData {
-		boardData[rowIdx] = make([]CellData, 9)
+		boardData[rowIdx] = make([]CellData, MaxNum)
 		for colIdx := range boardData[rowIdx] {
 			boardData[rowIdx][colIdx] = CellData{0}
 		}
@@ -164,10 +166,10 @@ func PrintBoardData(boardData BoardData) string {
 }
 
 func GenerateCellPositions() []CellPos {
-  positions := make([]CellPos, 81)
-  for rowIdx := 0; rowIdx < 9; rowIdx++ {
-    for colIdx := 0; colIdx < 9; colIdx++ {
-      posIdx := rowIdx * 9 + colIdx
+  positions := make([]CellPos, MaxNum*MaxNum)
+  for rowIdx := 0; rowIdx < MaxNum; rowIdx++ {
+    for colIdx := 0; colIdx < MaxNum; colIdx++ {
+      posIdx := rowIdx * MaxNum + colIdx
       positions[posIdx] = CellPos{rowIdx, colIdx}
     }
   }
