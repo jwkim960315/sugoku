@@ -238,3 +238,10 @@ func RemoveNumbers(boardData BoardData, numEmptyCells int) {
     }
   }
 }
+
+func GenerateInitialBoardData(difficulty Difficulty) BoardData {
+  numEmptyCells := GetNumEmptyCells(difficulty)
+  boardData := GenerateFilledBoardData()
+  RemoveNumbers(boardData, numEmptyCells)
+  return boardData
+}
