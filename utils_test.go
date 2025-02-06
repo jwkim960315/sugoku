@@ -22,7 +22,7 @@ func TestGeneratePossibleNumbers(t *testing.T) {
 	rowArray := GeneratePossibleNumbers()
 
 	for idx, elem := range rowArray {
-		if elem != uint(idx+1) {
+		if elem != idx+1 {
 			t.Errorf("elem: %v\nidx + 1: %v", elem, idx+1)
 		}
 	}
@@ -36,7 +36,7 @@ func TestGenerateRandomRowNumbers(t *testing.T) {
 		t.Errorf("\nOriginal array has a different length than the shuffled array\nOriginal array length: %v\nShuffled array length: %v", len(rowArray), len(shuffledRowArray))
 	}
 
-	var rowArraySum, shuffledRowArraySum uint
+	var rowArraySum, shuffledRowArraySum int
 	for _, elem := range rowArray {
 		rowArraySum += elem
 	}
@@ -185,7 +185,7 @@ func TestGenerateFilledBoardData(t *testing.T) {
 		for colIdx := range row {
 			cellData := &row[colIdx]
 
-			if !IsNumberValid(boardData, uint(rowIdx), uint(colIdx), cellData.Number) {
+			if !IsNumberValid(boardData, rowIdx, colIdx, cellData.Number) {
 				t.Errorf("\nInvalid number %v at (%v,%v)\n%v", cellData.Number, rowIdx, colIdx, PrintBoardData(boardData))
 			}
 		}
@@ -195,8 +195,8 @@ func TestGenerateFilledBoardData(t *testing.T) {
 func TestGenerateCellPositions(t *testing.T) {
 	cellPositions := GenerateCellPositions()
 
-	for i := uint(0); i < 9; i++ {
-		for j := uint(0); j < 9; j++ {
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
 			cellPos := cellPositions[i * 9 + j]
 			if cellPos.RowIdx != i || cellPos.ColIdx != j {
 				t.Errorf("Incorrect position (%v, %v); want (%v, %v)", cellPos.RowIdx, cellPos.ColIdx, i, j)
@@ -239,7 +239,7 @@ func TestCountSolutions(t *testing.T) {
 	multipleEmptyPos := []CellPos{{0, 0}, {0, 1}}
 
 	numSolutions := CountSolutions(multipleSolutionBoardData, multipleEmptyPos)
-	expectedNumSolutions := uint(72)
+	expectedNumSolutions := 72
 	if numSolutions != expectedNumSolutions {
 		t.Errorf("Expected %v solutions for board with only first row filled, got %v", expectedNumSolutions, numSolutions)
 	}
@@ -257,8 +257,8 @@ func TestCountSolutions(t *testing.T) {
 	}
 
 	var uniqueEmptyPos []CellPos
-	for i := uint(0); i < 9; i++ {
-		for j := uint(0); j < 9; j++ {
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
 			if uniqueSolutionBoardData[i][j].Number == 0 {
 				uniqueEmptyPos = append(uniqueEmptyPos, CellPos{i, j})
 			}
