@@ -207,3 +207,32 @@ func CountSolutions(boardData BoardData, emptyPosSlice []CellPos) uint {
   countSolutionsHelper(boardData, emptyPosSlice, 0, &count)
   return count
 }
+
+func RemoveNumbers(boardData BoardData, numEmptyCells int) {
+  cellPositions := GenerateCellPositions()
+  shuffledPositions := GenerateRandomPositions(cellPositions)
+
+  zeroPositions := make([]CellPos, 0);
+
+  for idx := 0; len(zeroPositions) < int(numEmptyCells) && idx < len(shuffledPositions); idx++ {
+    cellPos := &shuffledPositions[idx]
+    cellNumber := boardData[cellPos.RowIdx][cellPos.ColIdx].Number
+    boardData[cellPos.RowIdx][cellPos.ColIdx].Number = uint(0)
+    zeroPositions = append(zeroPositions, *cellPos)
+    numSolutions := CountSolutions(boardData, zeroPositions)
+    if numSolutions > 1 {
+      boardData[cellPos.RowIdx][cellPos.ColIdx].Number = cellNumber
+      zeroPositions = zeroPositions[:len(zeroPositions)-1]
+    }
+  }
+}
+
+func DeepCopyBoardData(boardData BoardData) BoardData {
+  copiedBoardData := make(BoardData, len(boardData))
+  for i := range boardData {
+    row := make([]CellData, len(boardData[i]))
+    copy(row, boardData[i])
+    copiedBoardData[i] = row
+  }
+  return copiedBoardData
+}
