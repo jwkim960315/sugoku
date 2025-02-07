@@ -131,7 +131,7 @@ func GenerateEmptyBoardData() BoardData {
 	for rowIdx := range boardData {
 		boardData[rowIdx] = make([]CellData, MaxNum)
 		for colIdx := range boardData[rowIdx] {
-			boardData[rowIdx][colIdx] = CellData{0}
+			boardData[rowIdx][colIdx] = CellData{0, false}
 		}
 	}
 	return boardData
@@ -230,10 +230,12 @@ func RemoveNumbers(boardData BoardData, numEmptyCells int) {
     cellPos := &shuffledPositions[idx]
     cellNumber := boardData[cellPos.RowIdx][cellPos.ColIdx].Number
     boardData[cellPos.RowIdx][cellPos.ColIdx].Number = 0
+    boardData[cellPos.RowIdx][cellPos.ColIdx].Editable = true
     zeroPositions = append(zeroPositions, *cellPos)
     numSolutions := CountSolutions(boardData, zeroPositions)
     if numSolutions > 1 {
       boardData[cellPos.RowIdx][cellPos.ColIdx].Number = cellNumber
+      boardData[cellPos.RowIdx][cellPos.ColIdx].Editable = false
       zeroPositions = zeroPositions[:len(zeroPositions)-1]
     }
   }

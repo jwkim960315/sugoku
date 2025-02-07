@@ -6,15 +6,15 @@ import (
 
 var (
 	FilledBoardData BoardData = BoardData{
-		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
-		{CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
-		{CellData{9}, CellData{3}, CellData{1}, CellData{4}, CellData{7}, CellData{5}, CellData{6}, CellData{8}, CellData{2}},
-		{CellData{2}, CellData{6}, CellData{7}, CellData{3}, CellData{8}, CellData{9}, CellData{1}, CellData{4}, CellData{5}},
-		{CellData{1}, CellData{9}, CellData{5}, CellData{7}, CellData{4}, CellData{2}, CellData{3}, CellData{6}, CellData{8}},
-		{CellData{8}, CellData{4}, CellData{3}, CellData{5}, CellData{6}, CellData{1}, CellData{2}, CellData{7}, CellData{9}},
-		{CellData{4}, CellData{1}, CellData{2}, CellData{8}, CellData{3}, CellData{7}, CellData{9}, CellData{5}, CellData{6}},
-		{CellData{3}, CellData{7}, CellData{8}, CellData{9}, CellData{5}, CellData{6}, CellData{4}, CellData{2}, CellData{1}},
-		{CellData{6}, CellData{5}, CellData{9}, CellData{1}, CellData{2}, CellData{4}, CellData{8}, CellData{3}, CellData{7}},
+		{CellData{5, false}, CellData{8, false}, CellData{6, false}, CellData{2, false}, CellData{9, false}, CellData{3, false}, CellData{7, false}, CellData{1, false}, CellData{4, false}},
+		{CellData{7, false}, CellData{2, false}, CellData{4, false}, CellData{6, false}, CellData{1, false}, CellData{8, false}, CellData{5, false}, CellData{9, false}, CellData{3, false}},
+		{CellData{9, false}, CellData{3, false}, CellData{1, false}, CellData{4, false}, CellData{7, false}, CellData{5, false}, CellData{6, false}, CellData{8, false}, CellData{2, false}},
+		{CellData{2, false}, CellData{6, false}, CellData{7, false}, CellData{3, false}, CellData{8, false}, CellData{9, false}, CellData{1, false}, CellData{4, false}, CellData{5, false}},
+		{CellData{1, false}, CellData{9, false}, CellData{5, false}, CellData{7, false}, CellData{4, false}, CellData{2, false}, CellData{3, false}, CellData{6, false}, CellData{8, false}},
+		{CellData{8, false}, CellData{4, false}, CellData{3, false}, CellData{5, false}, CellData{6, false}, CellData{1, false}, CellData{2, false}, CellData{7, false}, CellData{9, false}},
+		{CellData{4, false}, CellData{1, false}, CellData{2, false}, CellData{8, false}, CellData{3, false}, CellData{7, false}, CellData{9, false}, CellData{5, false}, CellData{6, false}},
+		{CellData{3, false}, CellData{7, false}, CellData{8, false}, CellData{9, false}, CellData{5, false}, CellData{6, false}, CellData{4, false}, CellData{2, false}, CellData{1, false}},
+		{CellData{6, false}, CellData{5, false}, CellData{9, false}, CellData{1, false}, CellData{2, false}, CellData{4, false}, CellData{8, false}, CellData{3, false}, CellData{7, false}},
 	}
 )
 
@@ -53,14 +53,14 @@ func TestShuffleSlice(t *testing.T) {
 func TestIsValidRowForNumber(t *testing.T) {
 	shuffledRow := BoardData{
 		{
-			CellData{3},
-			CellData{2},
-			CellData{8},
-			CellData{4},
-			CellData{5},
-			CellData{9},
-			CellData{7},
-			CellData{1},
+			CellData{3, false},
+			CellData{2, false},
+			CellData{8, false},
+			CellData{4, false},
+			CellData{5, false},
+			CellData{9, false},
+			CellData{7, false},
+			CellData{1, false},
 		},
 	}
 
@@ -75,14 +75,14 @@ func TestIsValidRowForNumber(t *testing.T) {
 
 func TestIsValidColForNumber(t *testing.T) {
 	shuffledCol := BoardData{
-		{CellData{3}},
-		{CellData{2}},
-		{CellData{8}},
-		{CellData{4}},
-		{CellData{5}},
-		{CellData{9}},
-		{CellData{7}},
-		{CellData{1}},
+		{CellData{3, false}},
+		{CellData{2, false}},
+		{CellData{8, false}},
+		{CellData{4, false}},
+		{CellData{5, false}},
+		{CellData{9, false}},
+		{CellData{7, false}},
+		{CellData{1, false}},
 	}
 
 	if !IsValidColForNumber(shuffledCol, 8, 0, 6) {
@@ -96,9 +96,9 @@ func TestIsValidColForNumber(t *testing.T) {
 
 func TestIsValidInnerGridForNumber(t *testing.T) {
 	boardData := BoardData{
-		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
-		{CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
-		{CellData{9}, CellData{3}, CellData{1}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{5, false}, CellData{8, false}, CellData{6, false}, CellData{2, false}, CellData{9, false}, CellData{3, false}, CellData{7, false}, CellData{1, false}, CellData{4, false}},
+		{CellData{7, false}, CellData{2, false}, CellData{4, false}, CellData{6, false}, CellData{1, false}, CellData{8, false}, CellData{5, false}, CellData{9, false}, CellData{3, false}},
+		{CellData{9, false}, CellData{3, false}, CellData{1, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
 	}
 
 	if !IsValidInnerGridForNumber(boardData, 2, 3, 4) {
@@ -112,15 +112,15 @@ func TestIsValidInnerGridForNumber(t *testing.T) {
 
 func TestIsNumberValid(t *testing.T) {
 	boardData := BoardData{
-		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
-		{CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
-		{CellData{9}, CellData{3}, CellData{1}, CellData{4}, CellData{7}, CellData{5}, CellData{6}, CellData{8}, CellData{2}},
-		{CellData{2}, CellData{6}, CellData{7}, CellData{3}, CellData{8}, CellData{9}, CellData{1}, CellData{4}, CellData{5}},
-		{CellData{1}, CellData{9}, CellData{5}, CellData{7}, CellData{4}, CellData{2}, CellData{3}, CellData{6}, CellData{8}},
-		{CellData{8}, CellData{4}, CellData{3}, CellData{5}, CellData{6}, CellData{1}, CellData{2}, CellData{7}, CellData{9}},
-		{CellData{4}, CellData{1}, CellData{2}, CellData{8}, CellData{3}, CellData{7}, CellData{9}, CellData{5}, CellData{6}},
-		{CellData{3}, CellData{7}, CellData{8}, CellData{9}, CellData{5}, CellData{6}, CellData{4}, CellData{2}, CellData{1}},
-		{CellData{6}, CellData{5}, CellData{9}, CellData{1}, CellData{2}, CellData{4}, CellData{8}, CellData{3}, CellData{0}},
+		{CellData{5, false}, CellData{8, false}, CellData{6, false}, CellData{2, false}, CellData{9, false}, CellData{3, false}, CellData{7, false}, CellData{1, false}, CellData{4, false}},
+		{CellData{7, false}, CellData{2, false}, CellData{4, false}, CellData{6, false}, CellData{1, false}, CellData{8, false}, CellData{5, false}, CellData{9, false}, CellData{3, false}},
+		{CellData{9, false}, CellData{3, false}, CellData{1, false}, CellData{4, false}, CellData{7, false}, CellData{5, false}, CellData{6, false}, CellData{8, false}, CellData{2, false}},
+		{CellData{2, false}, CellData{6, false}, CellData{7, false}, CellData{3, false}, CellData{8, false}, CellData{9, false}, CellData{1, false}, CellData{4, false}, CellData{5, false}},
+		{CellData{1, false}, CellData{9, false}, CellData{5, false}, CellData{7, false}, CellData{4, false}, CellData{2, false}, CellData{3, false}, CellData{6, false}, CellData{8, false}},
+		{CellData{8, false}, CellData{4, false}, CellData{3, false}, CellData{5, false}, CellData{6, false}, CellData{1, false}, CellData{2, false}, CellData{7, false}, CellData{9, false}},
+		{CellData{4, false}, CellData{1, false}, CellData{2, false}, CellData{8, false}, CellData{3, false}, CellData{7, false}, CellData{9, false}, CellData{5, false}, CellData{6, false}},
+		{CellData{3, false}, CellData{7, false}, CellData{8, false}, CellData{9, false}, CellData{5, false}, CellData{6, false}, CellData{4, false}, CellData{2, false}, CellData{1, false}},
+		{CellData{6, false}, CellData{5, false}, CellData{9, false}, CellData{1, false}, CellData{2, false}, CellData{4, false}, CellData{8, false}, CellData{3, false}, CellData{0, false}},
 	}
 
 	if !IsNumberValid(boardData, 8, 8, 7) {
@@ -136,8 +136,7 @@ func TestGenerateEmptyBoardData(t *testing.T) {
 	boardData := GenerateEmptyBoardData()
 
 	for rowIdx := range boardData {
-		row := boardData
-		for colIdx := range row {
+		for colIdx := range boardData[rowIdx] {
 			cellData := &boardData[rowIdx][colIdx]
 			if cellData.Number != 0 {
 				t.Errorf("Cell data value isn't zero:%v", cellData.Number)
@@ -149,15 +148,15 @@ func TestGenerateEmptyBoardData(t *testing.T) {
 func TestFindNextEmptyCellPos(t *testing.T) {
 	boardData1 := GenerateEmptyBoardData()
 	boardData2 := BoardData{
-		{CellData{5}, CellData{8}, CellData{6}, CellData{2}, CellData{9}, CellData{3}, CellData{7}, CellData{1}, CellData{4}},
-		{CellData{7}, CellData{2}, CellData{4}, CellData{6}, CellData{1}, CellData{8}, CellData{5}, CellData{9}, CellData{3}},
-		{CellData{9}, CellData{3}, CellData{1}, CellData{4}, CellData{7}, CellData{5}, CellData{6}, CellData{8}, CellData{2}},
-		{CellData{2}, CellData{6}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
-		{CellData{1}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
-		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
-		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
-		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
-		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
+		{CellData{5, false}, CellData{8, false}, CellData{6, false}, CellData{2, false}, CellData{9, false}, CellData{3, false}, CellData{7, false}, CellData{1, false}, CellData{4, false}},
+		{CellData{7, false}, CellData{2, false}, CellData{4, false}, CellData{6, false}, CellData{1, false}, CellData{8, false}, CellData{5, false}, CellData{9, false}, CellData{3, false}},
+		{CellData{9, false}, CellData{3, false}, CellData{1, false}, CellData{4, false}, CellData{7, false}, CellData{5, false}, CellData{6, false}, CellData{8, false}, CellData{2, false}},
+		{CellData{2, false}, CellData{6, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+		{CellData{1, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
 	}
 	boardData3 := FilledBoardData
 
@@ -184,7 +183,6 @@ func TestGenerateFilledBoardData(t *testing.T) {
 	for rowIdx, row := range boardData {
 		for colIdx := range row {
 			cellData := &row[colIdx]
-
 			if !IsNumberValid(boardData, rowIdx, colIdx, cellData.Number) {
 				t.Errorf("\nInvalid number %v at (%v,%v)\n%v", cellData.Number, rowIdx, colIdx, PrintBoardData(boardData))
 			}
@@ -194,10 +192,9 @@ func TestGenerateFilledBoardData(t *testing.T) {
 
 func TestGenerateCellPositions(t *testing.T) {
 	cellPositions := GenerateCellPositions()
-
 	for i := 0; i < MaxNum; i++ {
 		for j := 0; j < MaxNum; j++ {
-			cellPos := cellPositions[i * MaxNum + j]
+			cellPos := cellPositions[i*MaxNum+j]
 			if cellPos.RowIdx != i || cellPos.ColIdx != j {
 				t.Errorf("Incorrect position (%v, %v); want (%v, %v)", cellPos.RowIdx, cellPos.ColIdx, i, j)
 			}
@@ -208,7 +205,6 @@ func TestGenerateCellPositions(t *testing.T) {
 func TestGenerateRandomPositions(t *testing.T) {
 	cellPositions := GenerateCellPositions()
 	shuffledPositions := ShuffleSlice(cellPositions)
-
 	if len(cellPositions) != len(shuffledPositions) {
 		t.Errorf("\nOriginal slice has a different length than the shuffled slice\nOriginal slice length: %v\nShuffled slice length: %v", len(cellPositions), len(shuffledPositions))
 	}
@@ -222,7 +218,6 @@ func TestGenerateRandomPositions(t *testing.T) {
 				break
 			}
 		}
-
 		if hasFound {
 			numMatchingPos++
 		}
@@ -235,9 +230,7 @@ func TestGenerateRandomPositions(t *testing.T) {
 
 func TestCountSolutions(t *testing.T) {
 	multipleSolutionBoardData := GenerateEmptyBoardData()
-
 	multipleEmptyPos := []CellPos{{0, 0}, {0, 1}}
-
 	numSolutions := CountSolutions(multipleSolutionBoardData, multipleEmptyPos)
 	expectedNumSolutions := 72
 	if numSolutions != expectedNumSolutions {
@@ -245,15 +238,15 @@ func TestCountSolutions(t *testing.T) {
 	}
 
 	uniqueSolutionBoardData := BoardData{
-		{CellData{5}, CellData{3}, CellData{0}, CellData{0}, CellData{7}, CellData{0}, CellData{0}, CellData{0}, CellData{0}},
-		{CellData{6}, CellData{0}, CellData{0}, CellData{1}, CellData{9}, CellData{5}, CellData{0}, CellData{0}, CellData{0}},
-		{CellData{0}, CellData{9}, CellData{8}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{6}, CellData{0}},
-		{CellData{8}, CellData{0}, CellData{0}, CellData{0}, CellData{6}, CellData{0}, CellData{0}, CellData{0}, CellData{3}},
-		{CellData{4}, CellData{0}, CellData{0}, CellData{8}, CellData{0}, CellData{3}, CellData{0}, CellData{0}, CellData{1}},
-		{CellData{7}, CellData{0}, CellData{0}, CellData{0}, CellData{2}, CellData{0}, CellData{0}, CellData{0}, CellData{6}},
-		{CellData{0}, CellData{6}, CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{2}, CellData{8}, CellData{0}},
-		{CellData{0}, CellData{0}, CellData{0}, CellData{4}, CellData{1}, CellData{9}, CellData{0}, CellData{0}, CellData{5}},
-		{CellData{0}, CellData{0}, CellData{0}, CellData{0}, CellData{8}, CellData{0}, CellData{0}, CellData{7}, CellData{9}},
+		{CellData{5, false}, CellData{3, false}, CellData{0, false}, CellData{0, false}, CellData{7, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+		{CellData{6, false}, CellData{0, false}, CellData{0, false}, CellData{1, false}, CellData{9, false}, CellData{5, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+		{CellData{0, false}, CellData{9, false}, CellData{8, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{6, false}, CellData{0, false}},
+		{CellData{8, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{6, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{3, false}},
+		{CellData{4, false}, CellData{0, false}, CellData{0, false}, CellData{8, false}, CellData{0, false}, CellData{3, false}, CellData{0, false}, CellData{0, false}, CellData{1, false}},
+		{CellData{7, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{2, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{6, false}},
+		{CellData{0, false}, CellData{6, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{2, false}, CellData{8, false}, CellData{0, false}},
+		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{4, false}, CellData{1, false}, CellData{9, false}, CellData{0, false}, CellData{0, false}, CellData{5, false}},
+		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{8, false}, CellData{0, false}, CellData{0, false}, CellData{7, false}, CellData{9, false}},
 	}
 
 	var uniqueEmptyPos []CellPos
@@ -294,24 +287,24 @@ func TestGetNumEmptyCells(t *testing.T) {
 }
 
 func TestRemoveNumbers(t *testing.T) {
-  boardData := DeepCopyBoardData(FilledBoardData)
+	boardData := DeepCopyBoardData(FilledBoardData)
 
-  numEmptyCells := GetNumEmptyCells(Medium)
+	numEmptyCells := GetNumEmptyCells(Medium)
 
-  RemoveNumbers(boardData, numEmptyCells)
+	RemoveNumbers(boardData, numEmptyCells)
 
-  numZero := 0
-  for i := 0; i < len(boardData); i++ {
-    for j := 0; j < len(boardData[i]); j++ {
-      if boardData[i][j].Number == 0 {
-        numZero++
-      }
-    }
-  }
+	numZero := 0
+	for i := 0; i < len(boardData); i++ {
+		for j := 0; j < len(boardData[i]); j++ {
+			if boardData[i][j].Number == 0 {
+				numZero++
+			}
+		}
+	}
 
-  if numZero != int(numEmptyCells) {
-    t.Errorf("Expected %d cells to be removed, got %d", numEmptyCells, numZero)
-  }
+	if numZero != int(numEmptyCells) {
+		t.Errorf("Expected %d cells to be removed, got %d", numEmptyCells, numZero)
+	}
 }
 
 func TestGenerateInitialBoardData(t *testing.T) {
@@ -340,6 +333,21 @@ func TestGenerateInitialBoardData(t *testing.T) {
 
 	if numZero != numEmptyCells {
 		t.Errorf("Expected %d empty cells, got %d", numEmptyCells, numZero)
+	}
+
+	// Verify cell editability
+	for i := 0; i < len(boardData); i++ {
+		for j := 0; j < len(boardData[i]); j++ {
+			// Zero cell
+			if boardData[i][j].Number == 0 && !boardData[i][j].Editable {
+				t.Errorf("Expected (%v,%v) to be editable", i, j)
+			}
+
+			// Non-zero cell
+			if boardData[i][j].Number != 0 && boardData[i][j].Editable {
+				t.Errorf("Expected (%v,%v) to be non-editable", i, j)
+			}
+		}
 	}
 
 	// Verify board has exactly one solution

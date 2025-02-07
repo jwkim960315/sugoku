@@ -2,6 +2,7 @@ package main
 
 type CellData struct {
 	Number int
+	Editable bool
 }
 
 type BoardData = [][]CellData
