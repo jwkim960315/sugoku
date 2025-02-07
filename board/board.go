@@ -29,3 +29,16 @@ func insertCells(table *tview.Table, boardData types.BoardData) {
     }
   }
 }
+
+func registerCellSelectionChangedHandlers(
+  table *tview.Table, 
+  handlers []CellSelectionChangedHandler,
+) *tview.Table {
+  table.SetSelectionChangedFunc(func(row, col int) {
+    for _, handler := range handlers {
+      handler(row, col)
+    }
+  })
+
+  return table
+}
