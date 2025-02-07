@@ -42,3 +42,15 @@ func registerCellSelectionChangedHandlers(
 
   return table
 }
+
+func registerInputCaptureHandlers(table *tview.Table, handlers []InputCaptureHandler) {
+  table.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+    for _, handler := range handlers {
+      event, stop := handler(event)
+      if stop {
+        return event
+      }
+    }
+    return event
+  })
+}
