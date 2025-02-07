@@ -1,7 +1,7 @@
 package types
 
 type CellData struct {
-	Number int
+	Number   int
 	Editable bool
 }
 

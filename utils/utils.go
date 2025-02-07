@@ -12,13 +12,13 @@ import (
 /***************************/
 
 func DeepCopyBoardData(boardData types.BoardData) types.BoardData {
-  copiedBoardData := make(types.BoardData, len(boardData))
-  for i := range boardData {
-    row := make([]types.CellData, len(boardData[i]))
-    copy(row, boardData[i])
-    copiedBoardData[i] = row
-  }
-  return copiedBoardData
+	copiedBoardData := make(types.BoardData, len(boardData))
+	for i := range boardData {
+		row := make([]types.CellData, len(boardData[i]))
+		copy(row, boardData[i])
+		copiedBoardData[i] = row
+	}
+	return copiedBoardData
 }
 
 func PrintBoardData(boardData types.BoardData) string {
@@ -45,7 +45,7 @@ func PrintBoardData(boardData types.BoardData) string {
 }
 
 func ShuffleSlice[T any](slice []T) []T {
-  rand.Shuffle(len(slice), func(idx1, idx2 int) {
+	rand.Shuffle(len(slice), func(idx1, idx2 int) {
 		(slice)[idx1], slice[idx2] = slice[idx2], slice[idx1]
 	})
 
@@ -57,28 +57,28 @@ func ShuffleSlice[T any](slice []T) []T {
 /*********************************/
 
 const (
-  Easy types.Difficulty = iota
-  Medium
-  Hard
+	Easy types.Difficulty = iota
+	Medium
+	Hard
 )
 
 const MaxNum = 9
 
 var (
-  cellsToRemoveByDifficulty = map[types.Difficulty]int{
-    Easy: 20,
-    Medium: 30,
-    Hard: 40,
-  }
+	cellsToRemoveByDifficulty = map[types.Difficulty]int{
+		Easy:   20,
+		Medium: 30,
+		Hard:   40,
+	}
 )
 
 func GetNumEmptyCells(difficulty types.Difficulty) int {
-  numEmptyCells := cellsToRemoveByDifficulty[difficulty]
-  if numEmptyCells == 0 {
-    panic(fmt.Sprintf("Invalid difficulty value: %v", difficulty))
-  }
+	numEmptyCells := cellsToRemoveByDifficulty[difficulty]
+	if numEmptyCells == 0 {
+		panic(fmt.Sprintf("Invalid difficulty value: %v", difficulty))
+	}
 
-  return numEmptyCells
+	return numEmptyCells
 }
 
 func GeneratePossibleNumbers() [MaxNum]int {
@@ -186,66 +186,66 @@ func GenerateFilledBoardData() types.BoardData {
 }
 
 func GenerateCellPositions() []types.CellPos {
-  positions := make([]types.CellPos, MaxNum*MaxNum)
-  for rowIdx := 0; rowIdx < MaxNum; rowIdx++ {
-    for colIdx := 0; colIdx < MaxNum; colIdx++ {
-      posIdx := rowIdx * MaxNum + colIdx
-      positions[posIdx] = types.CellPos{RowIdx: rowIdx, ColIdx: colIdx}
-    }
-  }
+	positions := make([]types.CellPos, MaxNum*MaxNum)
+	for rowIdx := 0; rowIdx < MaxNum; rowIdx++ {
+		for colIdx := 0; colIdx < MaxNum; colIdx++ {
+			posIdx := rowIdx*MaxNum + colIdx
+			positions[posIdx] = types.CellPos{RowIdx: rowIdx, ColIdx: colIdx}
+		}
+	}
 
-  return positions
+	return positions
 }
 
 func countSolutionsHelper(boardData types.BoardData, emptyPosSlice []types.CellPos, idx int, count *int) {
-  if idx == len(emptyPosSlice) {
-    *count++
-    return
-  }
+	if idx == len(emptyPosSlice) {
+		*count++
+		return
+	}
 
-  cellPos := &emptyPosSlice[idx]
-  possibleNumbers := GeneratePossibleNumbers()
+	cellPos := &emptyPosSlice[idx]
+	possibleNumbers := GeneratePossibleNumbers()
 
-  for _, num := range possibleNumbers {
-    cellData := &boardData[cellPos.RowIdx][cellPos.ColIdx]
-    cellData.Number = num
-    if IsNumberValid(boardData, cellPos.RowIdx, cellPos.ColIdx, num) {
-      countSolutionsHelper(boardData, emptyPosSlice, idx+1, count)
-    }
-    cellData.Number = 0
-  }
+	for _, num := range possibleNumbers {
+		cellData := &boardData[cellPos.RowIdx][cellPos.ColIdx]
+		cellData.Number = num
+		if IsNumberValid(boardData, cellPos.RowIdx, cellPos.ColIdx, num) {
+			countSolutionsHelper(boardData, emptyPosSlice, idx+1, count)
+		}
+		cellData.Number = 0
+	}
 }
 
 func CountSolutions(boardData types.BoardData, emptyPosSlice []types.CellPos) int {
-  count := 0
-  countSolutionsHelper(boardData, emptyPosSlice, 0, &count)
-  return count
+	count := 0
+	countSolutionsHelper(boardData, emptyPosSlice, 0, &count)
+	return count
 }
 
 func RemoveNumbers(boardData types.BoardData, numEmptyCells int) {
-  cellPositions := GenerateCellPositions()
-  shuffledPositions := ShuffleSlice(cellPositions)
+	cellPositions := GenerateCellPositions()
+	shuffledPositions := ShuffleSlice(cellPositions)
 
-  zeroPositions := make([]types.CellPos, 0);
+	zeroPositions := make([]types.CellPos, 0)
 
-  for idx := 0; len(zeroPositions) < int(numEmptyCells) && idx < len(shuffledPositions); idx++ {
-    cellPos := &shuffledPositions[idx]
-    cellNumber := boardData[cellPos.RowIdx][cellPos.ColIdx].Number
-    boardData[cellPos.RowIdx][cellPos.ColIdx].Number = 0
-    boardData[cellPos.RowIdx][cellPos.ColIdx].Editable = true
-    zeroPositions = append(zeroPositions, *cellPos)
-    numSolutions := CountSolutions(boardData, zeroPositions)
-    if numSolutions > 1 {
-      boardData[cellPos.RowIdx][cellPos.ColIdx].Number = cellNumber
-      boardData[cellPos.RowIdx][cellPos.ColIdx].Editable = false
-      zeroPositions = zeroPositions[:len(zeroPositions)-1]
-    }
-  }
+	for idx := 0; len(zeroPositions) < int(numEmptyCells) && idx < len(shuffledPositions); idx++ {
+		cellPos := &shuffledPositions[idx]
+		cellNumber := boardData[cellPos.RowIdx][cellPos.ColIdx].Number
+		boardData[cellPos.RowIdx][cellPos.ColIdx].Number = 0
+		boardData[cellPos.RowIdx][cellPos.ColIdx].Editable = true
+		zeroPositions = append(zeroPositions, *cellPos)
+		numSolutions := CountSolutions(boardData, zeroPositions)
+		if numSolutions > 1 {
+			boardData[cellPos.RowIdx][cellPos.ColIdx].Number = cellNumber
+			boardData[cellPos.RowIdx][cellPos.ColIdx].Editable = false
+			zeroPositions = zeroPositions[:len(zeroPositions)-1]
+		}
+	}
 }
 
 func GenerateInitialBoardData(difficulty types.Difficulty) types.BoardData {
-  numEmptyCells := GetNumEmptyCells(difficulty)
-  boardData := GenerateFilledBoardData()
-  RemoveNumbers(boardData, numEmptyCells)
-  return boardData
+	numEmptyCells := GetNumEmptyCells(difficulty)
+	boardData := GenerateFilledBoardData()
+	RemoveNumbers(boardData, numEmptyCells)
+	return boardData
 }
