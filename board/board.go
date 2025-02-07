@@ -54,3 +54,38 @@ func registerInputCaptureHandlers(table *tview.Table, handlers []InputCaptureHan
     return event
   })
 }
+
+func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Table {
+  table := tview.NewTable()
+  
+  customizeBoard(table)
+
+  insertCells(table, boardData)
+
+  cellSelectionChangedHandlers := []CellSelectionChangedHandler{
+    updateSelectedCellCurry(table, boardData),
+  }
+
+  registerCellSelectionChangedHandlers(
+    table, 
+    cellSelectionChangedHandlers,
+  )
+    
+  appQuitHandler := appQuitHandlerCurry(app)
+  numberInputHandler := numberInputHandlerCurry(table, boardData)
+  deleteCellNumberHandler := deleteCellNumberHandlerCurry(table, boardData)
+
+  registerInputCaptureHandlers(
+    table, 
+    []InputCaptureHandler{
+      appQuitHandler, 
+      numberInputHandler, 
+      deleteCellNumberHandler,
+    },
+  )
+    
+  firstCellTextColor := cell.GetCellTextColor(&boardData[0][0], true)
+  table.GetCell(0, 0).SetTextColor(firstCellTextColor)
+
+  return table
+}
