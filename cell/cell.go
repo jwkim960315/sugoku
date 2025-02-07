@@ -25,6 +25,6 @@ func GenerateCellContent(number int) string {
 }
 
 func GenerateCell(cellData *types.CellData) *tview.TableCell {
-  str := GenerateCellContent(cellData.Number)
-  return tview.NewTableCell(str).SetAlign(tview.AlignCenter)
+	str := GenerateCellContent(cellData.Number)
+	return tview.NewTableCell(str).SetAlign(tview.AlignCenter)
 }

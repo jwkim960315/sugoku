@@ -37,47 +37,47 @@ func updateSelectedCellCurry(table *tview.Table, boardData types.BoardData) func
 /*************************/
 
 func appQuitHandlerCurry(app *tview.Application) InputCaptureHandler {
-  return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
-    if event.Rune() == 'q' {
-      app.Stop()
-      return event, true
-    }
+	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
+		if event.Rune() == 'q' {
+			app.Stop()
+			return event, true
+		}
 
-    return nil, false
-  }
+		return nil, false
+	}
 }
 
 func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData) InputCaptureHandler {
-  return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
-    switch event.Rune() {
-    case '1', '2', '3', '4', '5', '6', '7', '8', '9':
-      row, col := table.GetSelection()
-      if !boardData[row][col].Editable {
-        return event, true
-      }
+	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
+		switch event.Rune() {
+		case '1', '2', '3', '4', '5', '6', '7', '8', '9':
+			row, col := table.GetSelection()
+			if !boardData[row][col].Editable {
+				return event, true
+			}
 
-      selectedCell := table.GetCell(row, col)
-      cellContent := cell.GenerateCellContent(int(event.Rune() - '0'))
-      textColor := cell.GetCellTextColor(&boardData[row][col], true)
-      selectedCell.SetText(cellContent).SetTextColor(textColor)
-      return event, true
-    }
+			selectedCell := table.GetCell(row, col)
+			cellContent := cell.GenerateCellContent(int(event.Rune() - '0'))
+			textColor := cell.GetCellTextColor(&boardData[row][col], true)
+			selectedCell.SetText(cellContent).SetTextColor(textColor)
+			return event, true
+		}
 
-    return nil, false
-  }
+		return nil, false
+	}
 }
 
 func deleteCellNumberHandlerCurry(table *tview.Table, boardData types.BoardData) InputCaptureHandler {
-  return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
-    if event.Key() == tcell.KeyBackspace || event.Key() == tcell.KeyBackspace2 {
-      row, col := table.GetSelection()
-      if !boardData[row][col].Editable {
-        return event, true
-      }
-      table.GetCell(row, col).SetText(" 0 ")
-      return event, true
-    }
-  
-    return nil, false
-  }
+	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
+		if event.Key() == tcell.KeyBackspace || event.Key() == tcell.KeyBackspace2 {
+			row, col := table.GetSelection()
+			if !boardData[row][col].Editable {
+				return event, true
+			}
+			table.GetCell(row, col).SetText(" 0 ")
+			return event, true
+		}
+
+		return nil, false
+	}
 }
