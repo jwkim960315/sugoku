@@ -2,19 +2,75 @@ package main
 
 import (
 	"testing"
+
+	"github.com/jwkim960315/sugoku/types"
 )
 
 var (
-	FilledBoardData BoardData = BoardData{
-		{CellData{5, false}, CellData{8, false}, CellData{6, false}, CellData{2, false}, CellData{9, false}, CellData{3, false}, CellData{7, false}, CellData{1, false}, CellData{4, false}},
-		{CellData{7, false}, CellData{2, false}, CellData{4, false}, CellData{6, false}, CellData{1, false}, CellData{8, false}, CellData{5, false}, CellData{9, false}, CellData{3, false}},
-		{CellData{9, false}, CellData{3, false}, CellData{1, false}, CellData{4, false}, CellData{7, false}, CellData{5, false}, CellData{6, false}, CellData{8, false}, CellData{2, false}},
-		{CellData{2, false}, CellData{6, false}, CellData{7, false}, CellData{3, false}, CellData{8, false}, CellData{9, false}, CellData{1, false}, CellData{4, false}, CellData{5, false}},
-		{CellData{1, false}, CellData{9, false}, CellData{5, false}, CellData{7, false}, CellData{4, false}, CellData{2, false}, CellData{3, false}, CellData{6, false}, CellData{8, false}},
-		{CellData{8, false}, CellData{4, false}, CellData{3, false}, CellData{5, false}, CellData{6, false}, CellData{1, false}, CellData{2, false}, CellData{7, false}, CellData{9, false}},
-		{CellData{4, false}, CellData{1, false}, CellData{2, false}, CellData{8, false}, CellData{3, false}, CellData{7, false}, CellData{9, false}, CellData{5, false}, CellData{6, false}},
-		{CellData{3, false}, CellData{7, false}, CellData{8, false}, CellData{9, false}, CellData{5, false}, CellData{6, false}, CellData{4, false}, CellData{2, false}, CellData{1, false}},
-		{CellData{6, false}, CellData{5, false}, CellData{9, false}, CellData{1, false}, CellData{2, false}, CellData{4, false}, CellData{8, false}, CellData{3, false}, CellData{7, false}},
+	FilledBoardData types.BoardData = types.BoardData{
+		{
+			types.CellData{Number: 5, Editable: false}, types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 6, Editable: false}, types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 9, Editable: false}, types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 7, Editable: false}, types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+		},
+		{
+			types.CellData{Number: 7, Editable: false}, types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 4, Editable: false}, types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 1, Editable: false}, types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 5, Editable: false}, types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+		},
+		{
+			types.CellData{Number: 9, Editable: false}, types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 1, Editable: false}, types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 7, Editable: false}, types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 6, Editable: false}, types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+		},
+		{
+			types.CellData{Number: 2, Editable: false}, types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 7, Editable: false}, types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 8, Editable: false}, types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 1, Editable: false}, types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+		},
+		{
+			types.CellData{Number: 1, Editable: false}, types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 5, Editable: false}, types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 4, Editable: false}, types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 3, Editable: false}, types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+		},
+		{
+			types.CellData{Number: 8, Editable: false}, types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 3, Editable: false}, types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 6, Editable: false}, types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 2, Editable: false}, types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+		},
+		{
+			types.CellData{Number: 4, Editable: false}, types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 2, Editable: false}, types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 3, Editable: false}, types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 9, Editable: false}, types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+		},
+		{
+			types.CellData{Number: 3, Editable: false}, types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 8, Editable: false}, types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 5, Editable: false}, types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 4, Editable: false}, types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+		},
+		{
+			types.CellData{Number: 6, Editable: false}, types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 9, Editable: false}, types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 2, Editable: false}, types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 8, Editable: false}, types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+		},
 	}
 )
 
@@ -51,16 +107,16 @@ func TestShuffleSlice(t *testing.T) {
 }
 
 func TestIsValidRowForNumber(t *testing.T) {
-	shuffledRow := BoardData{
+	shuffledRow := types.BoardData{
 		{
-			CellData{3, false},
-			CellData{2, false},
-			CellData{8, false},
-			CellData{4, false},
-			CellData{5, false},
-			CellData{9, false},
-			CellData{7, false},
-			CellData{1, false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 1, Editable: false},
 		},
 	}
 
@@ -74,15 +130,15 @@ func TestIsValidRowForNumber(t *testing.T) {
 }
 
 func TestIsValidColForNumber(t *testing.T) {
-	shuffledCol := BoardData{
-		{CellData{3, false}},
-		{CellData{2, false}},
-		{CellData{8, false}},
-		{CellData{4, false}},
-		{CellData{5, false}},
-		{CellData{9, false}},
-		{CellData{7, false}},
-		{CellData{1, false}},
+	shuffledCol := types.BoardData{
+		{types.CellData{Number: 3, Editable: false}},
+		{types.CellData{Number: 2, Editable: false}},
+		{types.CellData{Number: 8, Editable: false}},
+		{types.CellData{Number: 4, Editable: false}},
+		{types.CellData{Number: 5, Editable: false}},
+		{types.CellData{Number: 9, Editable: false}},
+		{types.CellData{Number: 7, Editable: false}},
+		{types.CellData{Number: 1, Editable: false}},
 	}
 
 	if !IsValidColForNumber(shuffledCol, 8, 0, 6) {
@@ -95,10 +151,40 @@ func TestIsValidColForNumber(t *testing.T) {
 }
 
 func TestIsValidInnerGridForNumber(t *testing.T) {
-	boardData := BoardData{
-		{CellData{5, false}, CellData{8, false}, CellData{6, false}, CellData{2, false}, CellData{9, false}, CellData{3, false}, CellData{7, false}, CellData{1, false}, CellData{4, false}},
-		{CellData{7, false}, CellData{2, false}, CellData{4, false}, CellData{6, false}, CellData{1, false}, CellData{8, false}, CellData{5, false}, CellData{9, false}, CellData{3, false}},
-		{CellData{9, false}, CellData{3, false}, CellData{1, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+	boardData := types.BoardData{
+		{
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+		},
+		{
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+		},
+		{
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
 	}
 
 	if !IsValidInnerGridForNumber(boardData, 2, 3, 4) {
@@ -111,16 +197,106 @@ func TestIsValidInnerGridForNumber(t *testing.T) {
 }
 
 func TestIsNumberValid(t *testing.T) {
-	boardData := BoardData{
-		{CellData{5, false}, CellData{8, false}, CellData{6, false}, CellData{2, false}, CellData{9, false}, CellData{3, false}, CellData{7, false}, CellData{1, false}, CellData{4, false}},
-		{CellData{7, false}, CellData{2, false}, CellData{4, false}, CellData{6, false}, CellData{1, false}, CellData{8, false}, CellData{5, false}, CellData{9, false}, CellData{3, false}},
-		{CellData{9, false}, CellData{3, false}, CellData{1, false}, CellData{4, false}, CellData{7, false}, CellData{5, false}, CellData{6, false}, CellData{8, false}, CellData{2, false}},
-		{CellData{2, false}, CellData{6, false}, CellData{7, false}, CellData{3, false}, CellData{8, false}, CellData{9, false}, CellData{1, false}, CellData{4, false}, CellData{5, false}},
-		{CellData{1, false}, CellData{9, false}, CellData{5, false}, CellData{7, false}, CellData{4, false}, CellData{2, false}, CellData{3, false}, CellData{6, false}, CellData{8, false}},
-		{CellData{8, false}, CellData{4, false}, CellData{3, false}, CellData{5, false}, CellData{6, false}, CellData{1, false}, CellData{2, false}, CellData{7, false}, CellData{9, false}},
-		{CellData{4, false}, CellData{1, false}, CellData{2, false}, CellData{8, false}, CellData{3, false}, CellData{7, false}, CellData{9, false}, CellData{5, false}, CellData{6, false}},
-		{CellData{3, false}, CellData{7, false}, CellData{8, false}, CellData{9, false}, CellData{5, false}, CellData{6, false}, CellData{4, false}, CellData{2, false}, CellData{1, false}},
-		{CellData{6, false}, CellData{5, false}, CellData{9, false}, CellData{1, false}, CellData{2, false}, CellData{4, false}, CellData{8, false}, CellData{3, false}, CellData{0, false}},
+	boardData := types.BoardData{
+		{
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+		},
+		{
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+		},
+		{
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+		},
+		{
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+		},
+		{
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+		},
+		{
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+		},
+		{
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+		},
+		{
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+		},
+		{
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
 	}
 
 	if !IsNumberValid(boardData, 8, 8, 7) {
@@ -147,16 +323,95 @@ func TestGenerateEmptyBoardData(t *testing.T) {
 
 func TestFindNextEmptyCellPos(t *testing.T) {
 	boardData1 := GenerateEmptyBoardData()
-	boardData2 := BoardData{
-		{CellData{5, false}, CellData{8, false}, CellData{6, false}, CellData{2, false}, CellData{9, false}, CellData{3, false}, CellData{7, false}, CellData{1, false}, CellData{4, false}},
-		{CellData{7, false}, CellData{2, false}, CellData{4, false}, CellData{6, false}, CellData{1, false}, CellData{8, false}, CellData{5, false}, CellData{9, false}, CellData{3, false}},
-		{CellData{9, false}, CellData{3, false}, CellData{1, false}, CellData{4, false}, CellData{7, false}, CellData{5, false}, CellData{6, false}, CellData{8, false}, CellData{2, false}},
-		{CellData{2, false}, CellData{6, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
-		{CellData{1, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
-		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
-		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
-		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
-		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
+	boardData2 := types.BoardData{
+		{
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+		},
+		{
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+		},
+		{
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+		},
+		{
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
+		{
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
+		{
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
+		{
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
+		{
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
 	}
 	boardData3 := FilledBoardData
 
@@ -230,30 +485,120 @@ func TestGenerateRandomPositions(t *testing.T) {
 
 func TestCountSolutions(t *testing.T) {
 	multipleSolutionBoardData := GenerateEmptyBoardData()
-	multipleEmptyPos := []CellPos{{0, 0}, {0, 1}}
+	multipleEmptyPos := []types.CellPos{{RowIdx: 0, ColIdx: 0}, {RowIdx: 0, ColIdx: 1}}
 	numSolutions := CountSolutions(multipleSolutionBoardData, multipleEmptyPos)
 	expectedNumSolutions := 72
 	if numSolutions != expectedNumSolutions {
 		t.Errorf("Expected %v solutions for board with only first row filled, got %v", expectedNumSolutions, numSolutions)
 	}
 
-	uniqueSolutionBoardData := BoardData{
-		{CellData{5, false}, CellData{3, false}, CellData{0, false}, CellData{0, false}, CellData{7, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
-		{CellData{6, false}, CellData{0, false}, CellData{0, false}, CellData{1, false}, CellData{9, false}, CellData{5, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}},
-		{CellData{0, false}, CellData{9, false}, CellData{8, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{6, false}, CellData{0, false}},
-		{CellData{8, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{6, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{3, false}},
-		{CellData{4, false}, CellData{0, false}, CellData{0, false}, CellData{8, false}, CellData{0, false}, CellData{3, false}, CellData{0, false}, CellData{0, false}, CellData{1, false}},
-		{CellData{7, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{2, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{6, false}},
-		{CellData{0, false}, CellData{6, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{2, false}, CellData{8, false}, CellData{0, false}},
-		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{4, false}, CellData{1, false}, CellData{9, false}, CellData{0, false}, CellData{0, false}, CellData{5, false}},
-		{CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{0, false}, CellData{8, false}, CellData{0, false}, CellData{0, false}, CellData{7, false}, CellData{9, false}},
+	uniqueSolutionBoardData := types.BoardData{
+		{
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
+		{
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
+		{
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
+		{
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+		},
+		{
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 3, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+		},
+		{
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+		},
+		{
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 6, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 2, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+		},
+		{
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 4, Editable: false},
+			types.CellData{Number: 1, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 5, Editable: false},
+		},
+		{
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 8, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 0, Editable: false},
+			types.CellData{Number: 7, Editable: false},
+			types.CellData{Number: 9, Editable: false},
+		},
 	}
 
-	var uniqueEmptyPos []CellPos
+	var uniqueEmptyPos []types.CellPos
 	for i := 0; i < MaxNum; i++ {
 		for j := 0; j < MaxNum; j++ {
 			if uniqueSolutionBoardData[i][j].Number == 0 {
-				uniqueEmptyPos = append(uniqueEmptyPos, CellPos{i, j})
+				uniqueEmptyPos = append(uniqueEmptyPos, types.CellPos{RowIdx: i, ColIdx: j})
 			}
 		}
 	}
@@ -351,11 +696,11 @@ func TestGenerateInitialBoardData(t *testing.T) {
 	}
 
 	// Verify board has exactly one solution
-	emptyPositions := make([]CellPos, 0)
+	emptyPositions := make([]types.CellPos, 0)
 	for i := 0; i < len(boardData); i++ {
 		for j := 0; j < len(boardData[i]); j++ {
 			if boardData[i][j].Number == 0 {
-				emptyPositions = append(emptyPositions, CellPos{i, j})
+				emptyPositions = append(emptyPositions, types.CellPos{RowIdx: i, ColIdx: j})
 			}
 		}
 	}
