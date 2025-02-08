@@ -97,6 +97,11 @@ func registerTableInputCaptureHandlers(table *tview.Table, boardData types.Board
 	)
 }
 
+func focusFirstCell(table *tview.Table, boardData types.BoardData) {
+	firstCellTextColor := getCellTextColor(&boardData[0][0], true)
+	table.GetCell(0, 0).SetTextColor(firstCellTextColor)
+}
+
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
 	table := tview.NewTable()
 
@@ -112,8 +117,7 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Fra
 
 	registerTableInputCaptureHandlers(table, boardData, tableFrame)
 
-	firstCellTextColor := getCellTextColor(&boardData[0][0], true)
-	table.GetCell(0, 0).SetTextColor(firstCellTextColor)
+	focusFirstCell(table, boardData)
 
 	return tablePage
 }
