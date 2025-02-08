@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 
+	"github.com/gdamore/tcell/v2"
 	"github.com/jwkim960315/sugoku/types"
 	"github.com/rivo/tview"
 )
@@ -280,4 +281,16 @@ func GetCenteredComponent[T tview.Primitive](comp T, width, height int) *tview.F
 		AddItem(wrappedComp, height, 1, true).
 		AddItem(nil, 0, 1, false)
 	return wrappedComp
+}
+
+func RegisterInputCaptureHandlers[P types.InputCapturePrimitive](primitive P, handlers []types.InputCaptureHandler) {
+	primitive.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		for _, handler := range handlers {
+			event, stop := handler(event)
+			if stop {
+				return event
+			}
+		}
+		return event
+	})
 }

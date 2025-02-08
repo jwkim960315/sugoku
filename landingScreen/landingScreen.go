@@ -8,18 +8,6 @@ import (
 	"github.com/rivo/tview"
 )
 
-func registerInputCaptureHandlers(flex *tview.Flex, handlers []types.InputCaptureHandler) {
-	flex.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		for _, handler := range handlers {
-			event, stop := handler(event)
-			if stop {
-				return event
-			}
-		}
-		return event
-	})
-}
-
 func getDifficultyButtonContainer(buttons []*tview.Button) *tview.Flex {
 	flex := tview.NewFlex().SetDirection(tview.FlexRow)
 	focus := true
@@ -56,7 +44,7 @@ func GenerateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
   chooseDifficultyButtonHandler := chooseDifficultyButtonHandlerCurry(app, &selectedItemIdx, pageIdx)
   inputCaptureHandlers := []types.InputCaptureHandler{navigateButtonsHandler, chooseDifficultyButtonHandler}
 
-  registerInputCaptureHandlers(buttonContainer, inputCaptureHandlers)
+  utils.RegisterInputCaptureHandlers(buttonContainer, inputCaptureHandlers)
 
   wrappedFlexBox := centerButtonsHorizontally(buttonContainer)
 
