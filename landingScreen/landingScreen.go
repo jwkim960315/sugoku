@@ -38,9 +38,11 @@ func createDifficultyButtonContainer(buttons []*tview.Button) *tview.Flex {
 	return flex
 }
 
-func registerButtonInputCaptureHandlers(app *tview.Application, buttonContainer *tview.Flex, selectedItemIdx, pageIdx *int) {
-  navigateButtonsHandler := navigateButtonsHandlerCurry(buttonContainer, selectedItemIdx, app)
-  chooseDifficultyButtonHandler := chooseDifficultyButtonHandlerCurry(app, selectedItemIdx, pageIdx)
+func registerButtonInputCaptureHandlers(app *tview.Application, buttonContainer *tview.Flex, pageIdx *int) {
+	selectedItemIdx := 0
+
+  navigateButtonsHandler := navigateButtonsHandlerCurry(buttonContainer, &selectedItemIdx, app)
+  chooseDifficultyButtonHandler := chooseDifficultyButtonHandlerCurry(app, &selectedItemIdx, pageIdx)
   inputCaptureHandlers := []types.InputCaptureHandler{navigateButtonsHandler, chooseDifficultyButtonHandler}
 
   utils.RegisterInputCaptureHandlers(buttonContainer, inputCaptureHandlers)
@@ -60,10 +62,8 @@ func CreateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
   hardButton := createDifficultyButton("Hard")
   
   buttonContainer := createDifficultyButtonContainer([]*tview.Button{easyButton, mediumButton, hardButton})
-
-  selectedItemIdx := 0
   
-	registerButtonInputCaptureHandlers(app, buttonContainer, &selectedItemIdx, pageIdx)
+	registerButtonInputCaptureHandlers(app, buttonContainer, pageIdx)
 
   wrappedFlexBox := centerButtonsHorizontally(buttonContainer)
 
