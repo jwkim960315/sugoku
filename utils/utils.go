@@ -53,6 +53,19 @@ func ShuffleSlice[T any](slice []T) []T {
 	return slice
 }
 
+func IsBoardComplete(boardData types.BoardData) bool {
+  for rowIdx, row := range boardData {
+    for colIdx := range row {
+      cellData := &row[colIdx]
+      if cellData.Number == 0 || !IsNumberValid(boardData, rowIdx, colIdx, cellData.Number) {
+        return false
+      }
+    }
+  }
+
+  return true
+}
+
 /*********************************/
 /***** Sudoku Initialization *****/
 /*********************************/
