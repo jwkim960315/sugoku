@@ -39,7 +39,7 @@ func createCell(cellData *types.CellData) *tview.TableCell {
 /*******************/
 
 func createBoardFrame(table *tview.Table) *tview.Frame {
-	centeredTable := utils.GetCenteredComponent(table, 37, 19)
+	centeredTable := utils.CreateCenteredPrimitive(table, 37, 19)
 	return tview.NewFrame(centeredTable).
 		AddText(
 			"Press b to go back", 
@@ -50,7 +50,7 @@ func createBoardFrame(table *tview.Table) *tview.Frame {
 }
 
 func createBoardPage(tableFrame *tview.Frame) *tview.Frame {
-	centeredTableFrame := utils.GetCenteredComponent(tableFrame, 37, 25)
+	centeredTableFrame := utils.CreateCenteredPrimitive(tableFrame, 37, 25)
 	return tview.NewFrame(centeredTableFrame)
 }
 

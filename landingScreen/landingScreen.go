@@ -75,7 +75,7 @@ func GenerateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
 		SetBorders(2, 2, 0, 0, 2, 2).
 		AddText("Select a difficulty level to begin your Sudoku challenge", true, tview.AlignCenter, tcell.ColorReset)
 
-	wrappedFrame := utils.GetCenteredComponent(landingScreenPage, 60, 19)
+	wrappedFrame := utils.CreateCenteredPrimitive(landingScreenPage, 60, 19)
 
 	landingScreenPage = tview.NewFrame(wrappedFrame)
 

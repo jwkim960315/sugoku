@@ -269,18 +269,18 @@ func GenerateInitialBoardData(difficulty types.Difficulty) types.BoardData {
 /***** 			 UI 			 *****/
 /***************************/
 
-func GetCenteredComponent[T tview.Primitive](comp T, width, height int) *tview.Flex {
-	wrappedComp := tview.NewFlex().
+func CreateCenteredPrimitive[T tview.Primitive](primitive T, width, height int) *tview.Flex {
+	wrappedPrimitive := tview.NewFlex().
 		AddItem(nil, 0, 1, false).
-		AddItem(comp, width, 1, true).
+		AddItem(primitive, width, 1, true).
 		AddItem(nil, 0, 1, false).
 		SetDirection(tview.FlexColumn)
 
-	wrappedComp = tview.NewFlex().SetDirection(tview.FlexRow).
+	wrappedPrimitive = tview.NewFlex().SetDirection(tview.FlexRow).
 		AddItem(nil, 0, 1, false).
-		AddItem(wrappedComp, height, 1, true).
+		AddItem(wrappedPrimitive, height, 1, true).
 		AddItem(nil, 0, 1, false)
-	return wrappedComp
+	return wrappedPrimitive
 }
 
 func RegisterInputCaptureHandlers[P types.InputCapturePrimitive](primitive P, handlers []types.InputCaptureHandler) {
