@@ -33,3 +33,11 @@ func getDifficultyButtonContainer(buttons []*tview.Button) *tview.Flex {
 
 	return flex
 }
+
+func centerButtonsHorizontally(buttonContainer *tview.Flex) *tview.Flex {
+  return tview.NewFlex().
+    SetDirection(tview.FlexColumn).
+    AddItem(nil, 0, 1, false).
+    AddItem(buttonContainer, 30, 1, true).
+    AddItem(nil, 0, 1, false)
+}
