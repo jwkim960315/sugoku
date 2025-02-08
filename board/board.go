@@ -93,14 +93,12 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Fra
 		cellSelectionChangedHandlers,
 	)
 
-	appQuitHandler := appQuitHandlerCurry(app)
 	numberInputHandler := numberInputHandlerCurry(table, boardData, tableFrame)
 	deleteCellNumberHandler := deleteCellNumberHandlerCurry(table, boardData)
 
 	utils.RegisterInputCaptureHandlers(
 		table,
 		[]types.InputCaptureHandler{
-			appQuitHandler,
 			numberInputHandler,
 			deleteCellNumberHandler,
 		},

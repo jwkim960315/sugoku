@@ -36,17 +36,6 @@ func updateSelectedCellCurry(table *tview.Table, boardData types.BoardData) func
 /***** Input Capture *****/
 /*************************/
 
-func appQuitHandlerCurry(app *tview.Application) types.InputCaptureHandler {
-	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
-		if event.Rune() == 'q' {
-			app.Stop()
-			return event, true
-		}
-
-		return nil, false
-	}
-}
-
 func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData, tablePage *tview.Frame) types.InputCaptureHandler {
 	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
 		switch event.Rune() {
