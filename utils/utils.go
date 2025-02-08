@@ -5,6 +5,7 @@ import (
 	"math/rand"
 
 	"github.com/jwkim960315/sugoku/types"
+	"github.com/rivo/tview"
 )
 
 /***************************/
@@ -248,4 +249,22 @@ func GenerateInitialBoardData(difficulty types.Difficulty) types.BoardData {
 	boardData := GenerateFilledBoardData()
 	RemoveNumbers(boardData, numEmptyCells)
 	return boardData
+}
+
+/***************************/
+/***** 			 UI 			 *****/
+/***************************/
+
+func GetCenteredComponent[T tview.Primitive](comp T, width, height int) *tview.Flex {
+	wrappedComp := tview.NewFlex().
+		AddItem(nil, 0, 1, false).
+		AddItem(comp, width, 1, true).
+		AddItem(nil, 0, 1, false).
+		SetDirection(tview.FlexColumn)
+
+	wrappedComp = tview.NewFlex().SetDirection(tview.FlexRow).
+		AddItem(nil, 0, 1, false).
+		AddItem(wrappedComp, height, 1, true).
+		AddItem(nil, 0, 1, false)
+	return wrappedComp
 }
