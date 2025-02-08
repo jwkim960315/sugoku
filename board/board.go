@@ -58,6 +58,10 @@ func registerInputCaptureHandlers(table *tview.Table, handlers []types.InputCapt
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
 	table := tview.NewTable()
 
+	tableFrame := tview.NewFrame(utils.GetCenteredComponent(table, 37, 19)).
+		AddText("Press b to go back", false, tview.AlignCenter, tcell.ColorReset)
+	tablePage := tview.NewFrame(utils.GetCenteredComponent(tableFrame, 37, 25))
+
 	customizeBoard(table)
 
 	insertCells(table, boardData)
@@ -72,7 +76,7 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Fra
 	)
 
 	appQuitHandler := appQuitHandlerCurry(app)
-	numberInputHandler := numberInputHandlerCurry(table, boardData)
+	numberInputHandler := numberInputHandlerCurry(table, boardData, tableFrame)
 	deleteCellNumberHandler := deleteCellNumberHandlerCurry(table, boardData)
 
 	registerInputCaptureHandlers(
@@ -86,8 +90,6 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Fra
 
 	firstCellTextColor := cell.GetCellTextColor(&boardData[0][0], true)
 	table.GetCell(0, 0).SetTextColor(firstCellTextColor)
-
-	tablePage := tview.NewFrame(utils.GetCenteredComponent(table, 37, 19))
 
 	return tablePage
 }
