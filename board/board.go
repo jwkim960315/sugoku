@@ -73,6 +73,17 @@ func registerCellSelectionChangedHandlers(
 	return table
 }
 
+func registerBoardSelectionChangedHandlers(table *tview.Table, boardData types.BoardData) {
+	cellSelectionChangedHandlers := []CellSelectionChangedHandler{
+		updateSelectedCellCurry(table, boardData),
+	}
+
+	registerCellSelectionChangedHandlers(
+		table,
+		cellSelectionChangedHandlers,
+	)
+}
+
 func registerTableInputCaptureHandlers(table *tview.Table, boardData types.BoardData, tableFrame *tview.Frame) {
 	numberInputHandler := numberInputHandlerCurry(table, boardData, tableFrame)
 	deleteCellNumberHandler := deleteCellNumberHandlerCurry(table, boardData)
@@ -97,14 +108,7 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Fra
 
 	insertCells(table, boardData)
 
-	cellSelectionChangedHandlers := []CellSelectionChangedHandler{
-		updateSelectedCellCurry(table, boardData),
-	}
-
-	registerCellSelectionChangedHandlers(
-		table,
-		cellSelectionChangedHandlers,
-	)
+	registerBoardSelectionChangedHandlers(table, boardData)
 
 	registerTableInputCaptureHandlers(table, boardData, tableFrame)
 
