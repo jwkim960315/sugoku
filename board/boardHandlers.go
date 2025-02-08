@@ -4,6 +4,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 	"github.com/jwkim960315/sugoku/cell"
 	"github.com/jwkim960315/sugoku/types"
+	"github.com/jwkim960315/sugoku/utils"
 	"github.com/rivo/tview"
 )
 
@@ -47,7 +48,7 @@ func appQuitHandlerCurry(app *tview.Application) types.InputCaptureHandler {
 	}
 }
 
-func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData) types.InputCaptureHandler {
+func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData, tablePage *tview.Frame) types.InputCaptureHandler {
 	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
 		switch event.Rune() {
 		case '1', '2', '3', '4', '5', '6', '7', '8', '9':
@@ -60,6 +61,12 @@ func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData) type
 			cellContent := cell.GenerateCellContent(int(event.Rune() - '0'))
 			textColor := cell.GetCellTextColor(&boardData[row][col], true)
 			selectedCell.SetText(cellContent).SetTextColor(textColor)
+
+			if utils.IsBoardComplete(boardData) {
+				tablePage.AddText("", false, tview.AlignCenter, tcell.ColorReset).
+					AddText("Puzzle complete! 🎉", false, tview.AlignCenter, tcell.ColorGreen)
+			}
+
 			return event, true
 		}
 
