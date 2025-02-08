@@ -51,7 +51,7 @@ func appQuitHandlerCurry(app *tview.Application) types.InputCaptureHandler {
 func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData, tablePage *tview.Frame) types.InputCaptureHandler {
 	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
 		switch event.Rune() {
-		case '1', '2', '3', '4', '5', '6', '7', '8', '9':
+		case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
 			row, col := table.GetSelection()
 			if !boardData[row][col].Editable {
 				return event, true
