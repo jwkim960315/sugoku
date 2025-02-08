@@ -73,6 +73,19 @@ func registerCellSelectionChangedHandlers(
 	return table
 }
 
+func registerTableInputCaptureHandlers(table *tview.Table, boardData types.BoardData, tableFrame *tview.Frame) {
+	numberInputHandler := numberInputHandlerCurry(table, boardData, tableFrame)
+	deleteCellNumberHandler := deleteCellNumberHandlerCurry(table, boardData)
+
+	utils.RegisterInputCaptureHandlers(
+		table,
+		[]types.InputCaptureHandler{
+			numberInputHandler,
+			deleteCellNumberHandler,
+		},
+	)
+}
+
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
 	table := tview.NewTable()
 
@@ -93,16 +106,7 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Fra
 		cellSelectionChangedHandlers,
 	)
 
-	numberInputHandler := numberInputHandlerCurry(table, boardData, tableFrame)
-	deleteCellNumberHandler := deleteCellNumberHandlerCurry(table, boardData)
-
-	utils.RegisterInputCaptureHandlers(
-		table,
-		[]types.InputCaptureHandler{
-			numberInputHandler,
-			deleteCellNumberHandler,
-		},
-	)
+	registerTableInputCaptureHandlers(table, boardData, tableFrame)
 
 	firstCellTextColor := getCellTextColor(&boardData[0][0], true)
 	table.GetCell(0, 0).SetTextColor(firstCellTextColor)
