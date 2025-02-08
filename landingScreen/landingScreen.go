@@ -2,11 +2,25 @@ package landingScreen
 
 import (
 	"github.com/gdamore/tcell/v2"
-	"github.com/jwkim960315/sugoku/button"
 	"github.com/jwkim960315/sugoku/types"
 	"github.com/jwkim960315/sugoku/utils"
 	"github.com/rivo/tview"
 )
+
+func createDifficultyButton(content string) *tview.Button {
+	button := tview.NewButton(content).
+		SetActivatedStyle(tcell.StyleDefault.
+			Background(tcell.ColorRed).
+			Foreground(tcell.ColorWhite).
+			Bold(true),
+		).
+		SetStyle(tcell.StyleDefault.
+			Background(tcell.ColorWhite).
+			Foreground(tcell.ColorBlack),
+		)
+
+	return button
+}
 
 func getDifficultyButtonContainer(buttons []*tview.Button) *tview.Flex {
 	flex := tview.NewFlex().SetDirection(tview.FlexRow)
@@ -33,9 +47,9 @@ func centerButtonsHorizontally(buttonContainer *tview.Flex) *tview.Flex {
 }
 
 func GenerateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
-  easyButton := button.GenerateDifficultyButton("Easy")
-  mediumButton := button.GenerateDifficultyButton("Medium")
-  hardButton := button.GenerateDifficultyButton("Hard")
+  easyButton := createDifficultyButton("Easy")
+  mediumButton := createDifficultyButton("Medium")
+  hardButton := createDifficultyButton("Hard")
   
   buttonContainer := getDifficultyButtonContainer([]*tview.Button{easyButton, mediumButton, hardButton})
 
