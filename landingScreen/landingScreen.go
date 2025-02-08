@@ -17,3 +17,19 @@ func registerInputCaptureHandlers(flex *tview.Flex, handlers []types.InputCaptur
 		return event
 	})
 }
+
+func getDifficultyButtonContainer(buttons []*tview.Button) *tview.Flex {
+	flex := tview.NewFlex().SetDirection(tview.FlexRow)
+	focus := true
+	for i := 0; i < len(buttons) * 2 - 1; i++ {
+		if i % 2 == 0 {
+			flex.AddItem(buttons[i / 2], 3, 1, focus)
+			focus = false
+			continue
+		}
+
+		flex.AddItem(nil, 1, 0, false)
+	}
+
+	return flex
+}
