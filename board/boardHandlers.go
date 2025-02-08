@@ -2,7 +2,6 @@ package board
 
 import (
 	"github.com/gdamore/tcell/v2"
-	"github.com/jwkim960315/sugoku/cell"
 	"github.com/jwkim960315/sugoku/types"
 	"github.com/jwkim960315/sugoku/utils"
 	"github.com/rivo/tview"
@@ -19,13 +18,13 @@ func updateSelectedCellCurry(table *tview.Table, boardData types.BoardData) func
 	return func(row, col int) {
 		// Reset the previously selected cell's border color.
 		if cellComp := table.GetCell(prevRow, prevCol); cellComp != nil {
-			textColor := cell.GetCellTextColor(&boardData[prevRow][prevCol], false)
+			textColor := getCellTextColor(&boardData[prevRow][prevCol], false)
 			cellComp.SetTextColor(textColor).SetAttributes(tcell.AttrNone)
 		}
 
 		// Set the current selected cell's border color to red.
 		if cellComp := table.GetCell(row, col); cellComp != nil {
-			textColor := cell.GetCellTextColor(&boardData[row][col], true)
+			textColor := getCellTextColor(&boardData[row][col], true)
 			cellComp.SetTextColor(textColor).SetAttributes(tcell.AttrBold)
 		}
 
@@ -58,8 +57,8 @@ func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData, tabl
 			}
 
 			selectedCell := table.GetCell(row, col)
-			cellContent := cell.GenerateCellContent(int(event.Rune() - '0'))
-			textColor := cell.GetCellTextColor(&boardData[row][col], true)
+			cellContent := createCellContent(int(event.Rune() - '0'))
+			textColor := getCellTextColor(&boardData[row][col], true)
 			selectedCell.SetText(cellContent).SetTextColor(textColor)
 
 			boardData[row][col].Number = int(event.Rune() - '0')
