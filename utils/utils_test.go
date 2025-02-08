@@ -106,6 +106,19 @@ func TestShuffleSlice(t *testing.T) {
 	}
 }
 
+func TestIsBoardComplete(t *testing.T) {
+	if !IsBoardComplete(FilledBoardData) {
+		t.Errorf("\nComplete board:\n%v", PrintBoardData(FilledBoardData))
+	}
+
+	boardData := DeepCopyBoardData(FilledBoardData)
+	boardData[0][0].Number = 0
+
+	if IsBoardComplete(boardData) {
+		t.Errorf("\nIncomplete board:\n%v", PrintBoardData(boardData))
+	}
+}
+
 func TestIsValidRowForNumber(t *testing.T) {
 	shuffledRow := types.BoardData{
 		{
