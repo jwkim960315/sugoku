@@ -133,21 +133,21 @@ func focusFirstCell(table *tview.Table, boardData types.BoardData) {
 |-----------------------|
 */
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
-	table := tview.NewTable()
+	board := tview.NewTable()
 
-	tableFrame := createBoardFrame(table)
+	boardFrame := createBoardFrame(board)
 
-	tablePage := createBoardPage(tableFrame)
+	boardPage := createBoardPage(boardFrame)
 
-	customizeBoard(table)
+	customizeBoard(board)
 
-	insertCells(table, boardData)
+	insertCells(board, boardData)
 
-	focusFirstCell(table, boardData)
+	focusFirstCell(board, boardData)
 
-	registerBoardSelectionChangedHandlers(table, boardData)
+	registerBoardSelectionChangedHandlers(board, boardData)
 
-	registerTableInputCaptureHandlers(table, boardData, tableFrame)
+	registerTableInputCaptureHandlers(board, boardData, boardFrame)
 
-	return tablePage
+	return boardPage
 }
