@@ -38,6 +38,17 @@ func createCell(cellData *types.CellData) *tview.TableCell {
 /*		  Board 		 */
 /*******************/
 
+func createBoardFrame(table *tview.Table) *tview.Frame {
+	centeredTable := utils.GetCenteredComponent(table, 37, 19)
+	return tview.NewFrame(centeredTable).
+		AddText(
+			"Press b to go back", 
+			false, 
+			tview.AlignCenter, 
+			tcell.ColorReset,
+		)
+}
+
 func customizeBoard(table *tview.Table) *tview.Table {
 	return table.SetBorders(true).
 		SetBordersColor(tcell.ColorReset).
@@ -105,8 +116,7 @@ func focusFirstCell(table *tview.Table, boardData types.BoardData) {
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
 	table := tview.NewTable()
 
-	tableFrame := tview.NewFrame(utils.GetCenteredComponent(table, 37, 19)).
-		AddText("Press b to go back", false, tview.AlignCenter, tcell.ColorReset)
+	tableFrame := createBoardFrame(table)
 	tablePage := tview.NewFrame(utils.GetCenteredComponent(tableFrame, 37, 25))
 
 	customizeBoard(table)
