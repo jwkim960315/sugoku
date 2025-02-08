@@ -42,7 +42,7 @@ func navigateButtonsHandlerCurry(buttonsContainer *tview.Flex, selectedItemIdx *
 	}
 }
 
-func chooseDifficultyButtonHandlerCurry(app *tview.Application, selectedItemIdx *int, boardData types.BoardData, table *tview.Table) types.InputCaptureHandler {
+func chooseDifficultyButtonHandlerCurry(app *tview.Application, selectedItemIdx *int, pageIdx *int) types.InputCaptureHandler {
 	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
 		if event.Key() == tcell.KeyEnter {
 			difficulty := utils.Easy
@@ -52,10 +52,11 @@ func chooseDifficultyButtonHandlerCurry(app *tview.Application, selectedItemIdx 
 			case 4:
 				difficulty = utils.Hard
 			}
-			boardData = utils.GenerateInitialBoardData(difficulty)
-			table = board.GenerateBoard(boardData, app)
+			boardData := utils.GenerateInitialBoardData(difficulty)
+			table := board.GenerateBoard(boardData, app)
 			wrappedTable := tview.NewFrame(utils.GetCenteredComponent(table, 37, 19))
 			app.SetRoot(wrappedTable, true)
+			*pageIdx++
 			return event, true
 		}
 		return nil, false

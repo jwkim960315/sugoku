@@ -4,6 +4,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 	"github.com/jwkim960315/sugoku/button"
 	"github.com/jwkim960315/sugoku/types"
+	"github.com/jwkim960315/sugoku/utils"
 	"github.com/rivo/tview"
 )
 
@@ -43,7 +44,7 @@ func centerButtonsHorizontally(buttonContainer *tview.Flex) *tview.Flex {
     AddItem(nil, 0, 1, false)
 }
 
-func GenerateLandingScreen(app *tview.Application, boardData types.BoardData, table *tview.Table) *tview.Frame {
+func GenerateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
   easyButton := button.GenerateDifficultyButton("Easy")
   mediumButton := button.GenerateDifficultyButton("Medium")
   hardButton := button.GenerateDifficultyButton("Hard")
@@ -52,7 +53,7 @@ func GenerateLandingScreen(app *tview.Application, boardData types.BoardData, ta
 
   selectedItemIdx := 0
   navigateButtonsHandler := navigateButtonsHandlerCurry(buttonContainer, &selectedItemIdx, app)
-  chooseDifficultyButtonHandler := chooseDifficultyButtonHandlerCurry(app, &selectedItemIdx, boardData, table)
+  chooseDifficultyButtonHandler := chooseDifficultyButtonHandlerCurry(app, &selectedItemIdx, pageIdx)
   inputCaptureHandlers := []types.InputCaptureHandler{navigateButtonsHandler, chooseDifficultyButtonHandler}
 
   registerInputCaptureHandlers(buttonContainer, inputCaptureHandlers)
@@ -62,5 +63,14 @@ func GenerateLandingScreen(app *tview.Application, boardData types.BoardData, ta
   // Need this for the background color
   frame := tview.NewFrame(wrappedFlexBox)
 
-  return frame
+	landingScreenPage := tview.NewFrame(frame).
+		AddText("Sudoku Puzzle", true, tview.AlignCenter, tcell.ColorReset).
+		SetBorders(2, 2, 0, 0, 2, 2).
+		AddText("Select a difficulty level to begin your Sudoku challenge", true, tview.AlignCenter, tcell.ColorReset)
+
+	wrappedFrame := utils.GetCenteredComponent(landingScreenPage, 60, 19)
+
+	landingScreenPage = tview.NewFrame(wrappedFrame)
+
+  return landingScreenPage
 }
