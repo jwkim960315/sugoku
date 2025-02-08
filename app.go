@@ -14,7 +14,7 @@ func SetupApp(app *tview.Application, pageIdx *int) *tview.Application {
 		}
 		
 		if *pageIdx == 1 && event.Rune() == 'b' {
-			landingScreenPage := landingScreen.GenerateLandingScreen(app, pageIdx)
+			landingScreenPage := landingScreen.CreateLandingScreen(app, pageIdx)
 			app.SetRoot(landingScreenPage, true)
 			*pageIdx--
 		}
