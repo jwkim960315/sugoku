@@ -20,13 +20,13 @@ func updateSelectedCellCurry(table *tview.Table, boardData types.BoardData) func
 		// Reset the previously selected cell's border color.
 		if cellComp := table.GetCell(prevRow, prevCol); cellComp != nil {
 			textColor := cell.GetCellTextColor(&boardData[prevRow][prevCol], false)
-			cellComp.SetTextColor(textColor)
+			cellComp.SetTextColor(textColor).SetAttributes(tcell.AttrNone)
 		}
 
 		// Set the current selected cell's border color to red.
 		if cellComp := table.GetCell(row, col); cellComp != nil {
 			textColor := cell.GetCellTextColor(&boardData[row][col], true)
-			cellComp.SetTextColor(textColor)
+			cellComp.SetTextColor(textColor).SetAttributes(tcell.AttrBold)
 		}
 
 		prevRow, prevCol = row, col
