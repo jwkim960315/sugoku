@@ -11,7 +11,7 @@ func main() {
 	
 	SetupApp(app, &pageIdx)
 
-	landingScreenPage := landingScreen.GenerateLandingScreen(app, &pageIdx)
+	landingScreenPage := landingScreen.CreateLandingScreen(app, &pageIdx)
 	
 	if err := app.SetRoot(landingScreenPage, true).Run(); err != nil {
 		panic(err)

@@ -22,7 +22,7 @@ func createDifficultyButton(content string) *tview.Button {
 	return button
 }
 
-func getDifficultyButtonContainer(buttons []*tview.Button) *tview.Flex {
+func createDifficultyButtonContainer(buttons []*tview.Button) *tview.Flex {
 	flex := tview.NewFlex().SetDirection(tview.FlexRow)
 	focus := true
 	for i := 0; i < len(buttons) * 2 - 1; i++ {
@@ -54,12 +54,12 @@ func centerButtonsHorizontally(buttonContainer *tview.Flex) *tview.Flex {
     AddItem(nil, 0, 1, false)
 }
 
-func GenerateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
+func CreateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
   easyButton := createDifficultyButton("Easy")
   mediumButton := createDifficultyButton("Medium")
   hardButton := createDifficultyButton("Hard")
   
-  buttonContainer := getDifficultyButtonContainer([]*tview.Button{easyButton, mediumButton, hardButton})
+  buttonContainer := createDifficultyButtonContainer([]*tview.Button{easyButton, mediumButton, hardButton})
 
   selectedItemIdx := 0
   
