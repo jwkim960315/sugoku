@@ -53,9 +53,8 @@ func chooseDifficultyButtonHandlerCurry(app *tview.Application, selectedItemIdx 
 				difficulty = utils.Hard
 			}
 			boardData := utils.GenerateInitialBoardData(difficulty)
-			table := board.GenerateBoard(boardData, app)
-			wrappedTable := tview.NewFrame(utils.GetCenteredComponent(table, 37, 19))
-			app.SetRoot(wrappedTable, true)
+			tablePage := board.GenerateBoard(boardData, app)
+			app.SetRoot(tablePage, true)
 			*pageIdx++
 			return event, true
 		}

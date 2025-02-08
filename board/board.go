@@ -55,7 +55,7 @@ func registerInputCaptureHandlers(table *tview.Table, handlers []types.InputCapt
 	})
 }
 
-func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Table {
+func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
 	table := tview.NewTable()
 
 	customizeBoard(table)
@@ -87,5 +87,7 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Tab
 	firstCellTextColor := cell.GetCellTextColor(&boardData[0][0], true)
 	table.GetCell(0, 0).SetTextColor(firstCellTextColor)
 
-	return table
+	tablePage := tview.NewFrame(utils.GetCenteredComponent(table, 37, 19))
+
+	return tablePage
 }
