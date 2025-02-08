@@ -49,6 +49,11 @@ func createBoardFrame(table *tview.Table) *tview.Frame {
 		)
 }
 
+func createBoardPage(tableFrame *tview.Frame) *tview.Frame {
+	centeredTableFrame := utils.GetCenteredComponent(tableFrame, 37, 25)
+	return tview.NewFrame(centeredTableFrame)
+}
+
 func customizeBoard(table *tview.Table) *tview.Table {
 	return table.SetBorders(true).
 		SetBordersColor(tcell.ColorReset).
@@ -113,21 +118,36 @@ func focusFirstCell(table *tview.Table, boardData types.BoardData) {
 	table.GetCell(0, 0).SetTextColor(firstCellTextColor)
 }
 
+/*
+|-------BoardPage-------|
+|	|-----BoardFrame----|	|
+|	|	|-----Board-----|	| |
+|	|	|								|	| |
+|	|	|								|	|	|
+|	|	|								|	|	|
+|	|	|								|	|	|
+|	|	|								|	|	|
+|	|	|---------------|	|	|
+|	|				 Msg				|	|
+|	|-------------------|	|
+|-----------------------|
+*/
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
 	table := tview.NewTable()
 
 	tableFrame := createBoardFrame(table)
-	tablePage := tview.NewFrame(utils.GetCenteredComponent(tableFrame, 37, 25))
+
+	tablePage := createBoardPage(tableFrame)
 
 	customizeBoard(table)
 
 	insertCells(table, boardData)
 
+	focusFirstCell(table, boardData)
+
 	registerBoardSelectionChangedHandlers(table, boardData)
 
 	registerTableInputCaptureHandlers(table, boardData, tableFrame)
-
-	focusFirstCell(table, boardData)
 
 	return tablePage
 }
