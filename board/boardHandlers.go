@@ -36,7 +36,7 @@ func updateSelectedCellCurry(table *tview.Table, boardData types.BoardData) func
 /***** Input Capture *****/
 /*************************/
 
-func appQuitHandlerCurry(app *tview.Application) InputCaptureHandler {
+func appQuitHandlerCurry(app *tview.Application) types.InputCaptureHandler {
 	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
 		if event.Rune() == 'q' {
 			app.Stop()
@@ -47,7 +47,7 @@ func appQuitHandlerCurry(app *tview.Application) InputCaptureHandler {
 	}
 }
 
-func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData) InputCaptureHandler {
+func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData) types.InputCaptureHandler {
 	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
 		switch event.Rune() {
 		case '1', '2', '3', '4', '5', '6', '7', '8', '9':
@@ -67,7 +67,7 @@ func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData) Inpu
 	}
 }
 
-func deleteCellNumberHandlerCurry(table *tview.Table, boardData types.BoardData) InputCaptureHandler {
+func deleteCellNumberHandlerCurry(table *tview.Table, boardData types.BoardData) types.InputCaptureHandler {
 	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
 		if event.Key() == tcell.KeyBackspace || event.Key() == tcell.KeyBackspace2 {
 			row, col := table.GetSelection()
