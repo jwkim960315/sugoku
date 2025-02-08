@@ -2,6 +2,7 @@ package landingScreen
 
 import (
 	"github.com/gdamore/tcell/v2"
+	"github.com/jwkim960315/sugoku/button"
 	"github.com/jwkim960315/sugoku/types"
 	"github.com/rivo/tview"
 )
@@ -40,4 +41,26 @@ func centerButtonsHorizontally(buttonContainer *tview.Flex) *tview.Flex {
     AddItem(nil, 0, 1, false).
     AddItem(buttonContainer, 30, 1, true).
     AddItem(nil, 0, 1, false)
+}
+
+func GenerateLandingScreen(app *tview.Application, boardData types.BoardData, table *tview.Table) *tview.Frame {
+  easyButton := button.GenerateDifficultyButton("Easy")
+  mediumButton := button.GenerateDifficultyButton("Medium")
+  hardButton := button.GenerateDifficultyButton("Hard")
+  
+  buttonContainer := getDifficultyButtonContainer([]*tview.Button{easyButton, mediumButton, hardButton})
+
+  selectedItemIdx := 0
+  navigateButtonsHandler := navigateButtonsHandlerCurry(buttonContainer, &selectedItemIdx, app)
+  chooseDifficultyButtonHandler := chooseDifficultyButtonHandlerCurry(app, &selectedItemIdx, boardData, table)
+  inputCaptureHandlers := []types.InputCaptureHandler{navigateButtonsHandler, chooseDifficultyButtonHandler}
+
+  registerInputCaptureHandlers(buttonContainer, inputCaptureHandlers)
+
+  wrappedFlexBox := centerButtonsHorizontally(buttonContainer)
+
+  // Need this for the background color
+  frame := tview.NewFrame(wrappedFlexBox)
+
+  return frame
 }
