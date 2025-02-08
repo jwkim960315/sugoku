@@ -13,7 +13,7 @@ func GetCellTextColor(cellData *types.CellData, selected bool) tcell.Color {
 		return tcell.ColorRed
 	}
 
-	if cellData.Number == 0 {
+	if cellData.Editable {
 		return tcell.ColorReset
 	}
 
