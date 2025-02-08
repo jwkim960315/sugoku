@@ -99,7 +99,7 @@ func GeneratePossibleNumbers() [MaxNum]int {
 	return [MaxNum]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 }
 
-func IsValidRowForNumber(boardData types.BoardData, rowIdx int, colIdx int, number int) bool {
+func IsValidRowForNumber(boardData types.BoardData, rowIdx, colIdx, number int) bool {
 	row := boardData[rowIdx]
 
 	for currColIdx, elem := range row {
@@ -111,7 +111,7 @@ func IsValidRowForNumber(boardData types.BoardData, rowIdx int, colIdx int, numb
 	return true
 }
 
-func IsValidColForNumber(boardData types.BoardData, rowIdx int, colIdx int, number int) bool {
+func IsValidColForNumber(boardData types.BoardData, rowIdx, colIdx, number int) bool {
 	for currRowIdx, elem := range boardData {
 		if currRowIdx != rowIdx && elem[colIdx].Number == number {
 			return false
@@ -121,7 +121,7 @@ func IsValidColForNumber(boardData types.BoardData, rowIdx int, colIdx int, numb
 	return true
 }
 
-func IsValidInnerGridForNumber(boardData types.BoardData, rowIdx int, colIdx int, number int) bool {
+func IsValidInnerGridForNumber(boardData types.BoardData, rowIdx, colIdx, number int) bool {
 	rowStartIdx := 3 * (rowIdx / 3)
 	colStartIdx := 3 * (colIdx / 3)
 
