@@ -43,18 +43,6 @@ func registerCellSelectionChangedHandlers(
 	return table
 }
 
-func registerInputCaptureHandlers(table *tview.Table, handlers []types.InputCaptureHandler) {
-	table.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		for _, handler := range handlers {
-			event, stop := handler(event)
-			if stop {
-				return event
-			}
-		}
-		return event
-	})
-}
-
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
 	table := tview.NewTable()
 
@@ -79,7 +67,7 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Fra
 	numberInputHandler := numberInputHandlerCurry(table, boardData, tableFrame)
 	deleteCellNumberHandler := deleteCellNumberHandlerCurry(table, boardData)
 
-	registerInputCaptureHandlers(
+	utils.RegisterInputCaptureHandlers(
 		table,
 		[]types.InputCaptureHandler{
 			appQuitHandler,
