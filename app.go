@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gdamore/tcell/v2"
-	"github.com/jwkim960315/sugoku/landingScreen"
+	"github.com/jwkim960315/sugoku/landing"
 	"github.com/rivo/tview"
 )
 
@@ -14,7 +14,7 @@ func SetupApp(app *tview.Application, pageIdx *int) *tview.Application {
 		}
 		
 		if *pageIdx == 1 && event.Rune() == 'b' {
-			landingScreenPage := landingScreen.CreateLandingScreen(app, pageIdx)
+			landingScreenPage := landing.CreateLandingPage(app, pageIdx)
 			app.SetRoot(landingScreenPage, true)
 			*pageIdx--
 		}
