@@ -48,11 +48,11 @@ func registerButtonInputCaptureHandlers(app *tview.Application, buttonContainer 
   utils.RegisterInputCaptureHandlers(buttonContainer, inputCaptureHandlers)
 }
 
-func centerButtonsHorizontally(buttonContainer *tview.Flex) *tview.Flex {
+func createFixedWidthButtonContainer(buttonContainer *tview.Flex, width int) *tview.Flex {
   return tview.NewFlex().
     SetDirection(tview.FlexColumn).
     AddItem(nil, 0, 1, false).
-    AddItem(buttonContainer, 30, 1, true).
+    AddItem(buttonContainer, width, 1, true).
     AddItem(nil, 0, 1, false)
 }
 
@@ -62,13 +62,12 @@ func CreateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
   hardButton := createDifficultyButton("Hard")
   
   buttonContainer := createDifficultyButtonContainer([]*tview.Button{easyButton, mediumButton, hardButton})
+  buttonContainer = createFixedWidthButtonContainer(buttonContainer, 30)
   
 	registerButtonInputCaptureHandlers(app, buttonContainer, pageIdx)
 
-  wrappedFlexBox := centerButtonsHorizontally(buttonContainer)
-
   // Need this for the background color
-  frame := tview.NewFrame(wrappedFlexBox)
+  frame := tview.NewFrame(buttonContainer)
 
 	landingScreenPage := tview.NewFrame(frame).
 		AddText("Sudoku Puzzle", true, tview.AlignCenter, tcell.ColorReset).
