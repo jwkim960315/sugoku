@@ -79,6 +79,23 @@ func createButtonContainerFrame(buttonContainer *tview.Flex) *tview.Frame {
     )
 }
 
+func createLandingPage(buttonContainerFrame *tview.Frame) *tview.Frame {
+	return tview.NewFrame(utils.CreateCenteredPrimitive(buttonContainerFrame, 60, 19))
+}
+
+/*
+	|--------LandingPage---------|	
+	|	|--ButtonContainerFrame--| |
+	|	|         Title          | |
+	|	|      Instruction       | |
+	|	|	|--ButtonContainer--|  | |
+	|	|	|        Easy 			|  | |
+	|	|	|       Medium			|  | |
+	|	|	|        Hard 			|  | |
+	|	|	|-------------------|  | |
+	|	|------------------------| |
+	|----------------------------|
+*/
 func CreateLandingPage(app *tview.Application, pageIdx *int) *tview.Frame {
   easyButton := createDifficultyButton("Easy")
   mediumButton := createDifficultyButton("Medium")
@@ -91,9 +108,7 @@ func CreateLandingPage(app *tview.Application, pageIdx *int) *tview.Frame {
 
   buttonContainerFrame := createButtonContainerFrame(buttonContainer)
 
-  wrappedFrame := utils.CreateCenteredPrimitive(buttonContainerFrame, 60, 19)
-
-  landingPage := tview.NewFrame(wrappedFrame)
+  landingPage := createLandingPage(buttonContainerFrame)
 
   return landingPage
 }
