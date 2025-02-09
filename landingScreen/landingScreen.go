@@ -56,6 +56,29 @@ func createFixedWidthButtonContainer(buttonContainer *tview.Flex, width int) *tv
     AddItem(nil, 0, 1, false)
 }
 
+func createButtonContainerFrame(buttonContainer *tview.Flex) *tview.Frame {
+  return tview.NewFrame(buttonContainer).
+    SetBorders(2, 2, 2, 0, 2, 2).
+    AddText(
+      "Sudoku Puzzle", 
+      true, 
+      tview.AlignCenter, 
+      tcell.ColorReset,
+    ).
+    AddText(
+      "", 
+      true, 
+      tview.AlignCenter, 
+      tcell.ColorReset,
+    ).
+    AddText(
+      "Select a difficulty level to begin your Sudoku challenge", 
+      true, 
+      tview.AlignCenter,
+      tcell.ColorReset,
+    )
+}
+
 func CreateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
   easyButton := createDifficultyButton("Easy")
   mediumButton := createDifficultyButton("Medium")
@@ -66,17 +89,12 @@ func CreateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
   
 	registerButtonInputCaptureHandlers(app, buttonContainer, pageIdx)
 
-  // Need this for the background color
-  frame := tview.NewFrame(buttonContainer)
+  buttonContainerFrame := createButtonContainerFrame(buttonContainer)
 
-	landingScreenPage := tview.NewFrame(frame).
-		AddText("Sudoku Puzzle", true, tview.AlignCenter, tcell.ColorReset).
-		SetBorders(2, 2, 0, 0, 2, 2).
-		AddText("Select a difficulty level to begin your Sudoku challenge", true, tview.AlignCenter, tcell.ColorReset)
+  wrappedFrame := utils.CreateCenteredPrimitive(buttonContainerFrame, 60, 19)
 
-	wrappedFrame := utils.CreateCenteredPrimitive(landingScreenPage, 60, 19)
-
-	landingScreenPage = tview.NewFrame(wrappedFrame)
+  landingScreenPage := tview.NewFrame(wrappedFrame)
 
   return landingScreenPage
 }
+
