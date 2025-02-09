@@ -51,8 +51,9 @@ func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData, tabl
 			selectedCell.SetText(cellContent).SetTextColor(textColor)
 
 			boardData[row][col].Number = int(event.Rune() - '0')
-
+			
 			if utils.IsBoardComplete(boardData) {
+				disableAllCells(boardData)
 				tablePage.AddText("", false, tview.AlignCenter, tcell.ColorReset).
 					AddText("Puzzle complete! 🎉", false, tview.AlignCenter, tcell.ColorGreen)
 			}
@@ -79,5 +80,17 @@ func deleteCellNumberHandlerCurry(table *tview.Table, boardData types.BoardData)
 		}
 
 		return nil, false
+	}
+}
+
+/*************************/
+/*****     Misc.     *****/
+/*************************/
+
+func disableAllCells(boardData types.BoardData) {
+	for _, row := range boardData {
+		for colIdx := range row {
+			row[colIdx].Editable = false
+		}
 	}
 }
