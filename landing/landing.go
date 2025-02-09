@@ -1,4 +1,4 @@
-package landingScreen
+package landing
 
 import (
 	"github.com/gdamore/tcell/v2"
@@ -79,7 +79,7 @@ func createButtonContainerFrame(buttonContainer *tview.Flex) *tview.Frame {
     )
 }
 
-func CreateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
+func CreateLandingPage(app *tview.Application, pageIdx *int) *tview.Frame {
   easyButton := createDifficultyButton("Easy")
   mediumButton := createDifficultyButton("Medium")
   hardButton := createDifficultyButton("Hard")
@@ -93,8 +93,8 @@ func CreateLandingScreen(app *tview.Application, pageIdx *int) *tview.Frame {
 
   wrappedFrame := utils.CreateCenteredPrimitive(buttonContainerFrame, 60, 19)
 
-  landingScreenPage := tview.NewFrame(wrappedFrame)
+  landingPage := tview.NewFrame(wrappedFrame)
 
-  return landingScreenPage
+  return landingPage
 }
 
