@@ -102,11 +102,12 @@ func CreateLandingPage(app *tview.Application, pageIdx *int) *tview.Frame {
   hardButton := createDifficultyButton("Hard")
   
   buttonContainer := createDifficultyButtonContainer([]*tview.Button{easyButton, mediumButton, hardButton})
-  buttonContainer = createFixedWidthButtonContainer(buttonContainer, 30)
-  
+	
 	registerButtonInputCaptureHandlers(app, buttonContainer, pageIdx)
 
-  buttonContainerFrame := createButtonContainerFrame(buttonContainer)
+  buttonContainerFixedWidth := createFixedWidthButtonContainer(buttonContainer, 30)
+
+  buttonContainerFrame := createButtonContainerFrame(buttonContainerFixedWidth)
 
   landingPage := createLandingPage(buttonContainerFrame)
 
