@@ -77,6 +77,29 @@ func FormatTime(duration time.Duration) string {
 	return fmt.Sprintf("%02d:%02d:%02d:%03d", hours, minutes, seconds, milliseconds)
 }
 
+func StartTimer(timeTextView *tview.TextView, app *tview.Application) chan bool {
+  startTime := time.Now()
+  done := make(chan bool)
+  go func() {
+    for {
+      select {
+      case <-done:
+        timeTextView.SetTextColor(tcell.ColorGreen)
+        return
+      default:
+        duration := time.Since(startTime)
+        timeStr := FormatTime(duration)
+        app.QueueUpdateDraw(func() {
+          timeTextView.SetText(timeStr)
+        })
+        time.Sleep(time.Millisecond)
+      }
+    }
+  }()
+  return done
+}
+
+
 /*********************************/
 /***** Sudoku Initialization *****/
 /*********************************/
