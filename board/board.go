@@ -38,6 +38,14 @@ func createCell(cellData *types.CellData) *tview.TableCell {
 /*		  Board 		 */
 /*******************/
 
+func createTimerTextView() *tview.TextView {
+	timerTextView := tview.NewTextView().
+		SetText("00:00:00:000").
+		SetTextAlign(tview.AlignCenter)
+	timerTextView.SetBorderPadding(0,1,0,0)
+	return timerTextView
+}
+
 func createBoardFrame(table *tview.Table) *tview.Frame {
 	centeredTable := utils.CreateCenteredPrimitive(table, 37, 19)
 	return tview.NewFrame(centeredTable).
