@@ -46,20 +46,20 @@ func createTimerTextView() *tview.TextView {
 	return timerTextView
 }
 
-func createBoardWithTimer(board *tview.Table, timer *tview.TextView) *tview.Flex {
+func createBoardWithTimer(board *tview.Table, timer *tview.TextView, boardHeight, timerHeight int) *tview.Flex {
 	return tview.NewFlex().
 		SetDirection(tview.FlexRow).
 		AddItem(
 			timer,
-			2,
+			timerHeight,
 			1,
 			false,
 		).
-		AddItem(board, 19, 1, true)
+		AddItem(board, boardHeight, 1, true)
 }
 
-func createBoardFrame(boardWithTimer *tview.Flex) *tview.Frame {
-	centeredTable := utils.CreateCenteredPrimitive(boardWithTimer, 37, 21)
+func createBoardFrame(boardWithTimer *tview.Flex, width, height int) *tview.Frame {
+	centeredTable := utils.CreateCenteredPrimitive(boardWithTimer, width, height)
 	return tview.NewFrame(centeredTable).
 		AddText(
 			"Press b to go back", 
@@ -69,8 +69,8 @@ func createBoardFrame(boardWithTimer *tview.Flex) *tview.Frame {
 		)
 }
 
-func createBoardPage(tableFrame *tview.Frame) *tview.Frame {
-	centeredTableFrame := utils.CreateCenteredPrimitive(tableFrame, 37, 27)
+func createBoardPage(tableFrame *tview.Frame, width, height int) *tview.Frame {
+	centeredTableFrame := utils.CreateCenteredPrimitive(tableFrame, width, height)
 	return tview.NewFrame(centeredTableFrame)
 }
 
@@ -156,15 +156,19 @@ func focusFirstCell(table *tview.Table, boardData types.BoardData) {
 |---------------------------|
 */
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
+	timerHeight := 2
+	boardHeight := 19
+	boardWidth := 37
+
 	timer := createTimerTextView()
 
 	board := tview.NewTable()
 
-	boardWithTimer := createBoardWithTimer(board, timer)
+	boardWithTimer := createBoardWithTimer(board, timer, boardHeight, timerHeight)
 
-	boardFrame := createBoardFrame(boardWithTimer)
+	boardFrame := createBoardFrame(boardWithTimer, boardWidth, boardHeight + timerHeight)
 
-	boardPage := createBoardPage(boardFrame)
+	boardPage := createBoardPage(boardFrame, boardWidth, boardHeight + timerHeight + 6)
 
 	done := utils.StartTimer(timer, app)
 
