@@ -2,6 +2,7 @@ package utils
 
 import (
 	"testing"
+	"time"
 
 	"github.com/jwkim960315/sugoku/types"
 )
@@ -116,6 +117,37 @@ func TestIsBoardComplete(t *testing.T) {
 
 	if IsBoardComplete(boardData) {
 		t.Errorf("\nIncomplete board:\n%v", PrintBoardData(boardData))
+	}
+}
+
+func TestFormatTime(t *testing.T) {
+	testCases := []struct {
+		duration time.Duration
+		expected string
+	}{
+		{
+			duration: 0,
+			expected: "00:00:00:000",
+		},
+		{
+			duration: time.Hour,
+			expected: "01:00:00:000",
+		},
+		{
+			duration: time.Hour + 2*time.Minute + 3*time.Second + 456*time.Millisecond,
+			expected: "01:02:03:456",
+		},
+		{
+			duration: 123 * time.Millisecond,
+			expected: "00:00:00:123",
+		},
+	}
+
+	for _, tc := range testCases {
+		got := FormatTime(tc.duration)
+		if got != tc.expected {
+			t.Errorf("FormatTime(%v) = %q, expected %q", tc.duration, got, tc.expected)
+		}
 	}
 }
 

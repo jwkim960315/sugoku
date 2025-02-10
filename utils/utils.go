@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"math/rand"
+	"time"
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/jwkim960315/sugoku/types"
@@ -65,6 +66,15 @@ func IsBoardComplete(boardData types.BoardData) bool {
   }
 
   return true
+}
+
+func FormatTime(duration time.Duration) string {
+	hours := duration / time.Hour
+	minutes := duration % time.Hour / time.Minute
+	seconds := duration % time.Minute / time.Second
+	milliseconds := duration % time.Second / time.Millisecond
+
+	return fmt.Sprintf("%02d:%02d:%02d:%03d", hours, minutes, seconds, milliseconds)
 }
 
 /*********************************/
