@@ -46,6 +46,18 @@ func createTimerTextView() *tview.TextView {
 	return timerTextView
 }
 
+func createBoardWithTimer(board *tview.Table, timer *tview.TextView) *tview.Flex {
+	return tview.NewFlex().
+		SetDirection(tview.FlexRow).
+		AddItem(
+			timer,
+			2,
+			1,
+			false,
+		).
+		AddItem(board, 19, 1, true)
+}
+
 func createBoardFrame(table *tview.Table) *tview.Frame {
 	centeredTable := utils.CreateCenteredPrimitive(table, 37, 19)
 	return tview.NewFrame(centeredTable).
