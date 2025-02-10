@@ -36,7 +36,7 @@ func updateSelectedCellCurry(table *tview.Table, boardData types.BoardData) func
 /***** Input Capture *****/
 /*************************/
 
-func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData, tablePage *tview.Frame) types.InputCaptureHandler {
+func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData, tablePage *tview.Frame, done chan bool) types.InputCaptureHandler {
 	return func(event *tcell.EventKey) (*tcell.EventKey, bool) {
 		switch event.Rune() {
 		case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
@@ -53,6 +53,7 @@ func numberInputHandlerCurry(table *tview.Table, boardData types.BoardData, tabl
 			boardData[row][col].Number = int(event.Rune() - '0')
 			
 			if utils.IsBoardComplete(boardData) {
+				done <- true
 				disableAllCells(boardData)
 				tablePage.AddText("", false, tview.AlignCenter, tcell.ColorReset).
 					AddText("Puzzle complete! 🎉", false, tview.AlignCenter, tcell.ColorGreen)
