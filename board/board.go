@@ -58,8 +58,8 @@ func createBoardWithTimer(board *tview.Table, timer *tview.TextView) *tview.Flex
 		AddItem(board, 19, 1, true)
 }
 
-func createBoardFrame(table *tview.Table) *tview.Frame {
-	centeredTable := utils.CreateCenteredPrimitive(table, 37, 19)
+func createBoardFrame(boardWithTimer *tview.Flex) *tview.Frame {
+	centeredTable := utils.CreateCenteredPrimitive(boardWithTimer, 37, 21)
 	return tview.NewFrame(centeredTable).
 		AddText(
 			"Press b to go back", 
@@ -70,7 +70,7 @@ func createBoardFrame(table *tview.Table) *tview.Frame {
 }
 
 func createBoardPage(tableFrame *tview.Frame) *tview.Frame {
-	centeredTableFrame := utils.CreateCenteredPrimitive(tableFrame, 37, 25)
+	centeredTableFrame := utils.CreateCenteredPrimitive(tableFrame, 37, 27)
 	return tview.NewFrame(centeredTableFrame)
 }
 
@@ -120,8 +120,8 @@ func registerBoardSelectionChangedHandlers(table *tview.Table, boardData types.B
 	)
 }
 
-func registerTableInputCaptureHandlers(table *tview.Table, boardData types.BoardData, tableFrame *tview.Frame) {
-	numberInputHandler := numberInputHandlerCurry(table, boardData, tableFrame)
+func registerTableInputCaptureHandlers(table *tview.Table, boardData types.BoardData, tableFrame *tview.Frame, done chan bool) {
+	numberInputHandler := numberInputHandlerCurry(table, boardData, tableFrame, done)
 	deleteCellNumberHandler := deleteCellNumberHandlerCurry(table, boardData)
 
 	utils.RegisterInputCaptureHandlers(
@@ -139,25 +139,34 @@ func focusFirstCell(table *tview.Table, boardData types.BoardData) {
 }
 
 /*
-|-------BoardPage-------|
-|	|-----BoardFrame----|	|
-|	|	|-----Board-----|	| |
-|	|	|								|	| |
-|	|	|								|	|	|
-|	|	|								|	|	|
-|	|	|								|	|	|
-|	|	|								|	|	|
-|	|	|---------------|	|	|
-|	|				 Msg				|	|
-|	|-------------------|	|
-|-----------------------|
+|----------BoardPage--------|
+|	|-------BoardFrame------|	|
+| |	|--BoardWithTimer---| | |
+| | |       Timer       | | |
+|	|	| |-----Board-----|	| | |
+|	|	| |								|	| | |
+|	|	| |								|	| | |
+|	|	| |								|	| | |
+|	|	| |								|	| | |
+|	|	| |								|	| | |
+|	|	| |---------------|	| | |
+|	|	|-------------------| | |
+|	|	         Msg          | |
+|	|-----------------------|	|
+|---------------------------|
 */
 func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Frame {
+	timer := createTimerTextView()
+
 	board := tview.NewTable()
 
-	boardFrame := createBoardFrame(board)
+	boardWithTimer := createBoardWithTimer(board, timer)
+
+	boardFrame := createBoardFrame(boardWithTimer)
 
 	boardPage := createBoardPage(boardFrame)
+
+	done := utils.StartTimer(timer, app)
 
 	customizeBoard(board)
 
@@ -167,7 +176,7 @@ func GenerateBoard(boardData types.BoardData, app *tview.Application) *tview.Fra
 
 	registerBoardSelectionChangedHandlers(board, boardData)
 
-	registerTableInputCaptureHandlers(board, boardData, boardFrame)
+	registerTableInputCaptureHandlers(board, boardData, boardFrame, done)
 
 	return boardPage
 }
